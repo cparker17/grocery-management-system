@@ -3,22 +3,25 @@ package com.example.groceryorderapp.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import jakarta.persistence.Table;
-import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
-@Builder
 @Data
-@Table(name = "meals")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Meal {
+@Table(name = "food_items")
+public class FoodItem {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @NotNull
-    private String type;
+    private String name;
 }

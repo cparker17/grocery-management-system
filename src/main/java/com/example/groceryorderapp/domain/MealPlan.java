@@ -2,26 +2,25 @@ package com.example.groceryorderapp.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Table;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.data.annotation.Id;
+import java.util.List;
 
-@Entity
-@Data
 @Builder
-@NoArgsConstructor
+@Entity
 @AllArgsConstructor
-@Table(name = "ingredients")
-public class Ingredient {
+@NoArgsConstructor
+@Data
+public class MealPlan {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotNull
-    private String name;
+    @OneToMany
+    private List<Meal> mealList;
 }

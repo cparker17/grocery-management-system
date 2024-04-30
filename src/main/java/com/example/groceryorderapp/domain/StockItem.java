@@ -3,17 +3,20 @@ package com.example.groceryorderapp.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.persistence.Table;
 
 @Entity
 @Builder
-@Data
-@Table(name = "meals")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Meal {
+@Table(name = "stock_items")
+@Data
+public class StockItem {
 
     @Id
     @GeneratedValue

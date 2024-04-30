@@ -16,7 +16,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ingredients")
-public class Ingredient {
+public class Ingredient implements GroceryItem {
 
     @Id
     @GeneratedValue

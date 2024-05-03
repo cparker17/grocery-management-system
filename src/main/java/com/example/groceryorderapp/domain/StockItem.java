@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @NoArgsConstructor
 @Table(name = "stock_items")
 @Data
-public class StockItem {
+public class StockItem implements GroceryItem{
 
     @Id
     @GeneratedValue

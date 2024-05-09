@@ -1,11 +1,10 @@
 package com.example.groceryorderapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -20,5 +19,8 @@ public class Meal {
     private Long id;
 
     @NotNull
-    private String type;
+    private String name;
+
+    @OneToMany
+    private List<Ingredient> ingredients;
 }

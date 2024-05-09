@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.domain;
 
+import com.example.groceryorderapp.model.GroceryOrder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,7 +17,7 @@ import jakarta.persistence.Table;
 @NoArgsConstructor
 @Table(name = "stock_items")
 @Data
-public class StockItem implements GroceryItem{
+public class StockItem implements GroceryOrder.GroceryItem {
 
     @Id
     @GeneratedValue

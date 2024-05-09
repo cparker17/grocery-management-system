@@ -1,13 +1,12 @@
 package com.example.groceryorderapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -16,11 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class MealPlan {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToMany
     private List<Meal> mealList;
+
+    private LocalDate weekOfDate;
 }

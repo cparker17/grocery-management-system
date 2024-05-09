@@ -1,6 +1,5 @@
 package com.example.groceryorderapp.model;
 
-import com.example.groceryorderapp.domain.GroceryItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +14,6 @@ import java.util.List;
 public class GroceryOrder {
 
     private List<GroceryItem> groceryItemList;
+
+
 }

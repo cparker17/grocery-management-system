@@ -1,6 +1,6 @@
 package com.example.groceryorderapp.domain;
 
-import com.example.groceryorderapp.model.GroceryOrder;
+import com.example.groceryorderapp.model.GroceryItem;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,7 +17,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ingredients")
-public class Ingredient implements GroceryOrder.GroceryItem {
+public class Ingredient implements GroceryItem {
 
     @Id
     @GeneratedValue

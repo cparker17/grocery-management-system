@@ -1,4 +1,4 @@
-package com.example.groceryorderapp.domain;
+package com.example.groceryorderapp.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,20 +8,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Table;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "stock_items")
-public class StockItem extends GroceryItem {
+@AllArgsConstructor
+@Table(name = "ingredients")
+public class Ingredient {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotNull
+    private Double quantity;
+
+    private String quantityType;
+
     private String name;
+
 }

@@ -1,6 +1,6 @@
 package com.example.groceryorderapp.service;
 
-import com.example.groceryorderapp.domain.GroceryOrder;
+import com.example.groceryorderapp.model.GroceryOrder;
 import com.example.groceryorderapp.repository.GroceryOrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,6 @@ public class GroceryOrderService {
 
 
     public GroceryOrder addGroceryOrder(GroceryOrder groceryOrder) {
-        //return groceryOrderRepo.save(groceryOrder);
+        return groceryOrderRepo.save(groceryOrder);
     }
 }

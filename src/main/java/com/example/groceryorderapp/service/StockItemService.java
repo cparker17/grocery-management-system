@@ -1,6 +1,6 @@
 package com.example.groceryorderapp.service;
 
-import com.example.groceryorderapp.domain.StockItem;
+import com.example.groceryorderapp.model.StockItem;
 import com.example.groceryorderapp.exceptions.NoSuchStockItemException;
 import com.example.groceryorderapp.repository.StockItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.groceryorderapp.controller;
 
-import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.model.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.service.MealService;
 import org.springframework.beans.factory.annotation.Autowired;

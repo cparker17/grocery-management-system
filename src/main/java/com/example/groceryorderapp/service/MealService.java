@@ -1,6 +1,6 @@
 package com.example.groceryorderapp.service;
 
-import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.model.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.repository.MealRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,12 @@ public class MealService {
     MealRepo mealRepo;
 
     public Meal saveMeal(Meal meal) {
-        meal.setName(meal.getName());
-        return mealRepo.save(meal);
+        Meal mealToPersist = new Meal();
+        mealToPersist.builder()
+                .name(meal.getName())
+                .ingredients(meal.getIngredients())
+                .build();
+        return mealRepo.save(mealToPersist);
     }
 
     public void updateMeal(Meal meal) {

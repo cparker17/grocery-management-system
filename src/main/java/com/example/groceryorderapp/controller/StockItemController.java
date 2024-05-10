@@ -1,6 +1,6 @@
 package com.example.groceryorderapp.controller;
 
-import com.example.groceryorderapp.domain.StockItem;
+import com.example.groceryorderapp.model.StockItem;
 import com.example.groceryorderapp.service.StockItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

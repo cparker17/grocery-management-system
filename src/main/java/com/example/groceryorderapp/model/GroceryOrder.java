@@ -1,4 +1,4 @@
-package com.example.groceryorderapp.domain;
+package com.example.groceryorderapp.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,10 +19,10 @@ public class GroceryOrder {
     private Long id;
 
     @OneToMany
-    private List<GroceryItem> groceryItemList;
-
-    private LocalDate weekOfDate;
+    private List<Ingredient> ingredientsToOrder;
 
     @OneToMany
-    private List<GroceryItem> itemsToOrder;
+    private List<StockItem> stockItemsToOrder;
+
+    private LocalDate weekOfDate;
 }

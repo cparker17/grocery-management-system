@@ -1,6 +1,9 @@
 package com.example.groceryorderapp.repository;
 
+import com.example.groceryorderapp.model.GroceryOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface GroceryOrderRepo<GroceryOrder> extends JpaRepository<GroceryOrder, Long> {
+@Repository
+public interface GroceryOrderRepo extends JpaRepository<GroceryOrder, Long> {
 }

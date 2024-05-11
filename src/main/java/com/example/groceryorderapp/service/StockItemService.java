@@ -6,18 +6,13 @@ import com.example.groceryorderapp.repository.StockItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StockItemService {
 
     @Autowired
     StockItemRepo stockItemRepo;
-
-    public String addFoodItem(StockItem foodItem) {
-
-    }
 
     public StockItem getFoodItemById(Long foodItemId) throws NoSuchStockItemException {
         Optional<StockItem> optionalFoodItem = stockItemRepo.findById(foodItemId);
@@ -29,15 +24,7 @@ public class StockItemService {
 
     }
 
-    public List<StockItem> getAllFoodItems() {
-
+    public StockItem addFoodItem(StockItem foodItem) {
+        return stockItemRepo.save(foodItem);
     }
-
-    public StockItem updateFoodItem(Long id) {
-
-    }
-    public void deleteFoodItem(Long id) {
-
-    }
-
 }

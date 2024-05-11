@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.controller;
 
+import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
 import com.example.groceryorderapp.model.GroceryOrder;
 import com.example.groceryorderapp.service.GroceryOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,22 @@ public class GroceryOrderController {
         return "view-grocery-order";
     }
 
+    @RequestMapping("/update")
+    public String updateGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder) {
+        return "dashboard";
+    }
+
+    @RequestMapping("/delete")
+    public String deleteGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder) {
+        return "dashboard";
+    }
+
+    @RequestMapping("/view")
+    public String viewGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder)
+            throws NoSuchGroceryOrderException {
+        model.addAttribute(groceryOrderService.getById(groceryOrder.getId()));
+        return "view-grocery-order";
+    }
 
 
 }

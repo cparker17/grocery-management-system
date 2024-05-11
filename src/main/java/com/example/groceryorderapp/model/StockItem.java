@@ -22,5 +22,6 @@ public class StockItem {
     private Long id;
 
     private String name;
+    private String location;
 
 }

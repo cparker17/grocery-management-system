@@ -1,4 +1,4 @@
-package com.example.groceryorderapp.model;
+package com.example.groceryorderapp.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,16 +12,19 @@ import jakarta.persistence.Table;
 @Entity
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "stock_items")
-public class StockItem {
+@AllArgsConstructor
+@Table(name = "ingredients")
+public class Ingredient {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    private Double quantity;
+
+    private String quantityType;
+
     private String name;
-    private String location;
 
 }

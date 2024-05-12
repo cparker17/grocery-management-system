@@ -1,8 +1,9 @@
-package com.example.groceryorderapp.controller;
+package com.example.groceryorderapp.controllers;
 
 import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
-import com.example.groceryorderapp.model.GroceryOrder;
-import com.example.groceryorderapp.service.GroceryOrderService;
+import com.example.groceryorderapp.domain.GroceryOrder;
+import com.example.groceryorderapp.services.GroceryOrderService;
+import com.example.groceryorderapp.services.impl.GroceryOrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,6 +1,6 @@
-package com.example.groceryorderapp.controller;
+package com.example.groceryorderapp.controllers;
 
-import com.example.groceryorderapp.model.StockItem;
+import com.example.groceryorderapp.domain.StockItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

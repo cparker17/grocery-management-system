@@ -1,4 +1,4 @@
-package com.example.groceryorderapp.model;
+package com.example.groceryorderapp.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

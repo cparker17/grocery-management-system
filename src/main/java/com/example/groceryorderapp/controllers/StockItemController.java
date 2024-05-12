@@ -1,7 +1,8 @@
-package com.example.groceryorderapp.controller;
+package com.example.groceryorderapp.controllers;
 
-import com.example.groceryorderapp.model.StockItem;
-import com.example.groceryorderapp.service.StockItemService;
+import com.example.groceryorderapp.domain.StockItem;
+import com.example.groceryorderapp.services.StockItemService;
+import com.example.groceryorderapp.services.impl.StockItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StockItemController {
 
     @Autowired
-    StockItemService foodItemService;
+    StockItemService stockItemService;
 
     @PostMapping("/new-food")
-    public String addFoodItem(Model model, @ModelAttribute("foodItem") StockItem foodItem){
-        model.addAttribute(foodItemService.addFoodItem(foodItem));
+    public String addFoodItem(Model model, @ModelAttribute("stockItem") StockItem stockItem){
+        model.addAttribute(stockItemService.addFoodItem(stockItem));
         return "view-stockItem";
     }
 

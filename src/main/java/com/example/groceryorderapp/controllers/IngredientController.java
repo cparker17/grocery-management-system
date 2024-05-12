@@ -1,4 +1,4 @@
-package com.example.groceryorderapp.controller;
+package com.example.groceryorderapp.controllers;
 
 import org.springframework.stereotype.Controller;
 

@@ -1,13 +1,14 @@
-package com.example.groceryorderapp.service;
+package com.example.groceryorderapp.services.impl;
 
-import com.example.groceryorderapp.model.Meal;
+import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
-import com.example.groceryorderapp.repository.MealRepo;
+import com.example.groceryorderapp.repositories.MealRepo;
+import com.example.groceryorderapp.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MealService {
+public class MealServiceImpl implements MealService {
     @Autowired
     MealRepo mealRepo;
 

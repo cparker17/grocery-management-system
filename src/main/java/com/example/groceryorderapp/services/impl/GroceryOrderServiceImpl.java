@@ -18,11 +18,13 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
         return (GroceryOrder) groceryOrderRepo.save(groceryOrder);
     }
 
-    public Optional getById(Long id) throws NoSuchGroceryOrderException {
-        if (groceryOrderRepo.findById(id).isEmpty()) {
-            throw new NoSuchGroceryOrderException("A grocery order with this id does not exist.");
-        }
-        return groceryOrderRepo.findById(id);
+    public GroceryOrder getById(Long id) throws NoSuchGroceryOrderException {
+        Optional<GroceryOrder> groceryOrderOptional = groceryOrderRepo.findById(id);
+
+       if (groceryOrderOptional.isEmpty()) {
+           throw new NoSuchGroceryOrderException("A grocery order with this id does not exist.");
+       }
+       return groceryOrderOptional.get();
     }
 
 /*

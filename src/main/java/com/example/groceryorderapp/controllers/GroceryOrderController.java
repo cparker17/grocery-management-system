@@ -3,7 +3,6 @@ package com.example.groceryorderapp.controllers;
 import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
 import com.example.groceryorderapp.domain.GroceryOrder;
 import com.example.groceryorderapp.services.GroceryOrderService;
-import com.example.groceryorderapp.services.impl.GroceryOrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +23,12 @@ public class GroceryOrderController {
 
     @RequestMapping("/update")
     public String updateGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder) {
-        return "dashboard";
+        return "home";
     }
 
     @RequestMapping("/delete")
     public String deleteGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder) {
-        return "dashboard";
+        return "home";
     }
 
     @RequestMapping("/view")

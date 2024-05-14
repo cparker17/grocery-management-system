@@ -8,44 +8,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div th:replace="fragments/navbar-fragment.html :: navbar-fragment"></div>
+<div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br><br>
 <h3 class="text-center">Add Stock Item</h3>
 <br>
-<div class="container d-flex justify-content-center">
-    <form action="#" th:action="@{/food/new-food}" th:object="${foodItem}"
-          method="post">
-        <div class="input-group flex-nowrap">
-            <span class="input-group-text" id="addon-wrapping">Item</span>
-            <input type="text" th:field="*{name}" required class="form-control" placeholder="Enter item name"
-                   aria-label="Username" aria-describedby="addon-wrapping">
-            <ul class="dropdown">
-                <select th:field="*{location}">
-                    <li>
-                        <option class="dropdown-item" th:value="Refrigerator">Refrigerator</option>
-                    </li>
-                    <li>
-                        <option class="dropdown-item" th:value="Freezer">Freezer</option>
-                    </li>
-                    <li>
-                        <option class="dropdown-item" th:value="Cabinet">Cabinet</option>
-                    </li>
-                    <li>
-                        <option class="dropdown-item" th:value="Pantry">Pantry</option>
-                    </li>
-                </select></ul>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form th:action="@{/stock-item/new}" th:object="${stockItem}">
+                <div class="input-group">
+                    <span class="input-group-text" id="addon-wrapping">Item</span>
+                    <input type="text" th:field="*{name}" required class="form-control" placeholder="Enter item name">
+                    <ul class="dropdown dropdown-outline-dark">
+                        <select th:field="*{location}">
+                            <li>
+                                <option class="dropdown-item" th:value="Refrigerator">Refrigerator</option>
+                            </li>
+                            <li>
+                                <option class="dropdown-item" th:value="Freezer">Freezer</option>
+                            </li>
+                            <li>
+                                <option class="dropdown-item" th:value="Cabinet">Cabinet</option>
+                            </li>
+                            <li>
+                                <option class="dropdown-item" th:value="Pantry">Pantry</option>
+                            </li>
+                        </select>
+                    </ul>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-2">
+                        <br>
+                        <button type="submit" class="btn btn-outline-dark bg-light">Save</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <br>
-
-        </tr>
-        <br>
-        <tr>
-            <td colspan="2">
-                <button type="submit" class="btn btn-outline-dark">Save</button>
-            </td>
-        </tr>
-        </table>
-    </form>
+    </div>
 </div>
 </body>
 </html>

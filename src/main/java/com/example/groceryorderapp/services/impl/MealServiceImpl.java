@@ -7,6 +7,8 @@ import com.example.groceryorderapp.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MealServiceImpl implements MealService {
     @Autowired
@@ -17,6 +19,7 @@ public class MealServiceImpl implements MealService {
         mealToPersist.builder()
                 .name(meal.getName())
                 .ingredients(meal.getIngredients())
+                .recipe(meal.getRecipe())
                 .build();
         return mealRepo.save(mealToPersist);
     }
@@ -37,5 +40,10 @@ public class MealServiceImpl implements MealService {
             throw new NoSuchMealException("A meal with that id does not exist");
         }
         return mealRepo.findById(id).get();
+    }
+
+    @Override
+    public List<Meal> getAllMeals() {
+        return mealRepo.findAll();
     }
 }

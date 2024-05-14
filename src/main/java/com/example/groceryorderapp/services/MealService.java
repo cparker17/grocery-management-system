@@ -4,13 +4,17 @@ import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface MealService {
-    Object saveMeal(Meal meal);
+    Meal saveMeal(Meal meal);
 
     void updateMeal(Meal meal);
 
     void deleteMeal(Long id) throws NoSuchMealException;
 
-    Object viewMeal(Long id) throws NoSuchMealException;
+    Meal viewMeal(Long id) throws NoSuchMealException;
+
+    List<Meal> getAllMeals();
 }

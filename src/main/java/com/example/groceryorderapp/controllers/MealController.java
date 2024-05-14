@@ -3,7 +3,6 @@ package com.example.groceryorderapp.controllers;
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.services.MealService;
-import com.example.groceryorderapp.services.impl.MealServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,5 +39,15 @@ public class MealController {
         return "view-meal";
     }
 
+    @RequestMapping("/view-all")
+    public String viewAllMeals(Model model) {
+        model.addAttribute("meals", mealService.getAllMeals());
+        return "view-all-meals";
+    }
 
+    @RequestMapping("/add")
+    public String addNewMeal(Model model, @ModelAttribute("meal") Meal meal) {
+        model.addAttribute("meal", new Meal(meal.getNumberOfIngredients()));
+        return "new-meal";
+    }
 }

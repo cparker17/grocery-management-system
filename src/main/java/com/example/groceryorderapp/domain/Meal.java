@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,18 @@ public class Meal {
     @NotNull
     private String name;
 
+    @NotNull
+    private Integer numberOfIngredients;
+
     @OneToMany
     private List<Ingredient> ingredients;
+
+    private String recipe;
+
+    public Meal(Integer numberOfIngredients) {
+        ingredients = new ArrayList<>();
+        for(int i = 0; i <= numberOfIngredients; i++) {
+            ingredients.add(new Ingredient());
+        }
+    }
 }

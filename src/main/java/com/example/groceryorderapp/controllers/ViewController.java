@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.controllers;
 
+import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.domain.StockItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,8 @@ public class ViewController {
     }
 
     @RequestMapping("/new-stock-item")
-    public String viewNewFoodPage(Model model) {
-        model.addAttribute("foodItem", new StockItem());
+    public String viewNewStockItemPage(Model model) {
+        model.addAttribute("stockItem", new StockItem());
         return "new-stock-item";
     }
 
@@ -27,5 +28,9 @@ public class ViewController {
         return "update-stock-item";
     }
 
-
+    @RequestMapping("/new-meal")
+    public String viewMealSetupPage(Model model) {
+        model.addAttribute("meal", new Meal());
+        return "meal-setup";
+    }
 }

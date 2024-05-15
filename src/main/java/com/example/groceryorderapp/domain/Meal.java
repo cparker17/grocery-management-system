@@ -22,17 +22,17 @@ public class Meal {
     @NotNull
     private String name;
 
-    @NotNull
-    private Integer numberOfIngredients;
+    private int numberOfIngredients;
 
     @OneToMany
     private List<Ingredient> ingredients;
 
     private String recipe;
 
-    public Meal(Integer numberOfIngredients) {
+    public Meal(Integer num) {
+        numberOfIngredients = num;
         ingredients = new ArrayList<>();
-        for(int i = 0; i <= numberOfIngredients; i++) {
+        for(int i = 0; i < numberOfIngredients; i++) {
             ingredients.add(new Ingredient());
         }
     }

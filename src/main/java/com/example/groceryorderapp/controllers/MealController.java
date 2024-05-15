@@ -17,6 +17,7 @@ public class MealController {
 
     @RequestMapping("/save")
     public String saveMeal(Model model, @ModelAttribute("meal") Meal meal) throws NoSuchMealException {
+        System.out.println(meal.toString());
         model.addAttribute("meal", mealService.saveMeal(meal));
         return "view-meal";
     }
@@ -40,7 +41,7 @@ public class MealController {
     }
 
     @RequestMapping("/view-all")
-    public String viewAllMeals(Model model) {
+    public String viewAllMeals(Model model) throws NoSuchMealException {
         model.addAttribute("meals", mealService.getAllMeals());
         return "view-all-meals";
     }

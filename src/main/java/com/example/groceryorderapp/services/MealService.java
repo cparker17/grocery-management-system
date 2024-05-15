@@ -16,5 +16,5 @@ public interface MealService {
 
     Meal viewMeal(Long id) throws NoSuchMealException;
 
-    List<Meal> getAllMeals();
+    List<Meal> getAllMeals() throws NoSuchMealException;
 }

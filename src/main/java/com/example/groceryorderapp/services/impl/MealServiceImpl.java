@@ -14,6 +14,7 @@ public class MealServiceImpl implements MealService {
     @Autowired
     MealRepo mealRepo;
 
+    @Override
     public Meal saveMeal(Meal meal) {
         Meal mealToPersist = new Meal();
         mealToPersist.builder()
@@ -24,10 +25,12 @@ public class MealServiceImpl implements MealService {
         return mealRepo.save(mealToPersist);
     }
 
+    @Override
     public void updateMeal(Meal meal) {
         mealRepo.save(meal);
     }
 
+    @Override
     public void deleteMeal(Long id) throws NoSuchMealException {
         if (mealRepo.findById(id).isEmpty()) {
             throw new NoSuchMealException("A meal with that id does not exist");
@@ -35,6 +38,7 @@ public class MealServiceImpl implements MealService {
         mealRepo.deleteById(id);
     }
 
+    @Override
     public Meal viewMeal(Long id) throws NoSuchMealException{
         if (mealRepo.findById(id).isEmpty()) {
             throw new NoSuchMealException("A meal with that id does not exist");
@@ -43,7 +47,11 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public List<Meal> getAllMeals() {
-        return mealRepo.findAll();
+    public List<Meal> getAllMeals() throws NoSuchMealException {
+        List<Meal> meals = mealRepo.findAll();
+        if (meals.isEmpty()) {
+            throw new NoSuchMealException("There aren't any saved meals.");
+        }
+        return meals;
     }
 }

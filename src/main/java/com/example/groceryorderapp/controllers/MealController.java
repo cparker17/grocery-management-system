@@ -48,7 +48,9 @@ public class MealController {
 
     @RequestMapping("/add")
     public String addNewMeal(Model model, @ModelAttribute("meal") Meal meal) {
-        model.addAttribute("meal", new Meal(meal.getNumberOfIngredients()));
+        meal = new Meal(meal.getNumberOfIngredients());
+        model.addAttribute("meal", meal);
+        model.addAttribute("ingredients", meal.getIngredients());
         return "new-meal";
     }
 }

@@ -12,23 +12,23 @@
 <br>
 <h1 class="text-center">Add New Meal</h1>
 <br>
-<form th:action="@{/meals/save}" >
+<form th:action="@{/meals/save}" th:object="${meal}">
     <div class="row justify-content-center">
         <div class="col-sm-4" >
-            <div class="mb-3" th:object="${meal}">
+            <div class="mb-3" >
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}">
             </div>
-            <div class="mb-3" th:object="${meal}">
+            <div class="mb-3">
                 <label for="recipe" class="form-label">Recipe</label>
                 <input type="text" class="form-control" id="recipe" th:field="*{recipe}">
             </div>
             <div class="mb-3 align-text-center">
                 <h2>Enter each ingredient</h2>
             </div>
-            <div th:each="ingredient : ${meal.ingredients}" th:object="${meal}">
+            <div th:each="ingredient : ${meal.ingredients}">
                 <div class="mb-3">
-                    <input type="text" class="form-control" th:field="*{}">
+                    <input type="text" class="form-control" th:field="*{ingredient.name}">
                 </div>
             </div>
             <div class="row justify-content-center">

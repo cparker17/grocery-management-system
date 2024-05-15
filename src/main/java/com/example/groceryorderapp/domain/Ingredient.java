@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.domain;
 
+import com.example.groceryorderapp.model.QuantityType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class Ingredient {
 
     private Double quantity;
 
-    private String quantityType;
+    private QuantityType quantityType;
 
     private String name;
 

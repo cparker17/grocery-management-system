@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MealServiceImpl implements MealService {
@@ -40,10 +41,11 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal viewMeal(Long id) throws NoSuchMealException{
-        if (mealRepo.findById(id).isEmpty()) {
+        Optional<Meal> mealOptional = mealRepo.findById(id);
+        if (mealOptional.isEmpty()) {
             throw new NoSuchMealException("A meal with that id does not exist");
         }
-        return mealRepo.findById(id).get();
+        return mealOptional.get();
     }
 
     @Override

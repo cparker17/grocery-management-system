@@ -24,7 +24,7 @@ public class Meal {
 
     private int numberOfIngredients;
 
-    @OneToMany
+    @ManyToMany
     private List<Ingredient> ingredients;
 
     private String recipe;

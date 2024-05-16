@@ -26,9 +26,9 @@
             <div class="mb-3 align-text-center">
                 <h2>Enter each ingredient</h2>
             </div>
-            <div th:each="ingredient : ${meal.ingredients}">
+            <div th:each="ingredient, stat : ${meal.ingredients}">
                 <div class="mb-3">
-                    <input type="text" class="form-control" th:field="*{ingredient.name}">
+                    <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].name}">
                 </div>
             </div>
             <div class="row justify-content-center">

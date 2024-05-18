@@ -1,6 +1,5 @@
 package com.example.groceryorderapp.domain;
 
-import com.example.groceryorderapp.model.QuantityType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -9,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Table;
+import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 @Data
@@ -22,10 +22,7 @@ public class Ingredient {
     @GeneratedValue
     private Long id;
 
-    private Double quantity;
-
-    private QuantityType quantityType;
-
-    private String name;
+    @NotNull
+    private String description;
 
 }

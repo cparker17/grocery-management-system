@@ -27,6 +27,7 @@ public class Meal {
     @ManyToMany
     private List<Ingredient> ingredients;
 
+    @NotNull
     private String recipe;
 
     public Meal(Integer num) {

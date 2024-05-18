@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,5 +23,6 @@ public class MealPlan {
     @OneToMany
     private List<Meal> mealList;
 
+    @NotNull
     private LocalDate weekOfDate;
 }

@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Table;
+import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 @Data
@@ -21,7 +22,9 @@ public class StockItem {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     private String name;
+
     private String location;
 
 }

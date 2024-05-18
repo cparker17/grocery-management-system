@@ -28,7 +28,7 @@
             </div>
             <div th:each="ingredient, stat : ${meal.ingredients}">
                 <div class="mb-3">
-                    <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].name}">
+                    <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].getDescription}">
                 </div>
             </div>
             <div class="row justify-content-center">

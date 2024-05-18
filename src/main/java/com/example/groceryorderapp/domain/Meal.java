@@ -28,6 +28,7 @@ public class Meal {
     private List<Ingredient> ingredients;
 
     @NotNull
+    @Column(length = 1000)
     private String recipe;
 
     public Meal(Integer num) {

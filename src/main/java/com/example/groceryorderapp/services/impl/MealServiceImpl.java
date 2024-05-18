@@ -60,10 +60,11 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal getTonightsMeal() {
+        // *** TEST OBJECT ***
         return Meal.builder()
                 .name("Chicken Caesar Salad")
                 .recipe("Lettuce, chicken...")
-                .ingredients((List<Ingredient>) Ingredient.builder().description("Cut lettuce, bake chicken").build())
+                .ingredients(List.of(Ingredient.builder().description("Cut lettuce, bake chicken").build()))
                 .build();
     }
 }

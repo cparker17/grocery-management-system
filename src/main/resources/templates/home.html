@@ -14,9 +14,9 @@
     <h1>Grocery Order Application</h1>
 </div>
 <br>
-<div class="container" th:object="${meal}">
-    <div class="row">
-        <div class="col-md-5 bg-light border border-dark justify-content-center text-center m-1">
+<div class="container text-center" th:object="${meal}">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-5 bg-light border border-dark m-1">
             <h2 th:text="'Tonight\'s Dinner: ' + *{name}">Tonight's Dinner: Meal Name</h2>
             <br>
             <h4>Ingredients</h4>

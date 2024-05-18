@@ -25,4 +25,8 @@ public class Ingredient {
     @NotNull
     private String description;
 
+    public Ingredient (String description) {
+        this.description = description;
+    }
+
 }

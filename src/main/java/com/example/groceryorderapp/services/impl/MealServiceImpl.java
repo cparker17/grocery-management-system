@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.services.impl;
 
+import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.repositories.MealRepo;
@@ -55,5 +56,14 @@ public class MealServiceImpl implements MealService {
             throw new NoSuchMealException("There aren't any saved meals.");
         }
         return meals;
+    }
+
+    @Override
+    public Meal getTonightsMeal() {
+        return Meal.builder()
+                .name("Chicken Caesar Salad")
+                .recipe("Lettuce, chicken...")
+                .ingredients((List<Ingredient>) Ingredient.builder().description("Cut lettuce, bake chicken").build())
+                .build();
     }
 }

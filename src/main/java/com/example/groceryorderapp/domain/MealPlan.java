@@ -1,14 +1,13 @@
 package com.example.groceryorderapp.domain;
 
+import com.example.groceryorderapp.model.Day;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Builder
 @Entity
@@ -21,8 +20,16 @@ public class MealPlan {
     private Long id;
 
     @OneToMany
-    private List<Meal> mealList;
+    private List<MealSchedule> mealList;
 
-    @NotNull
-    private LocalDate weekOfDate;
+    public MealPlan(List<MealSchedule> mealList) {
+        this.mealList = mealList;
+        mealList.add(new MealSchedule(Day.SUNDAY.name(), new Meal()));
+        mealList.add(new MealSchedule(Day.MONDAY.name(), new Meal()));
+        mealList.add(new MealSchedule(Day.TUESDAY.name(), new Meal()));
+        mealList.add(new MealSchedule(Day.WEDNESDAY.name(), new Meal()));
+        mealList.add(new MealSchedule(Day.THURSDAY.name(), new Meal()));
+        mealList.add(new MealSchedule(Day.FRIDAY.name(), new Meal()));
+        mealList.add(new MealSchedule(Day.SATURDAY.name(), new Meal()));
+    }
 }

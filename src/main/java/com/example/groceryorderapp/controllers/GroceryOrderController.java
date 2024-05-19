@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/grocery-order")
 public class GroceryOrderController {
+
     @Autowired
     GroceryOrderService groceryOrderService;
 
@@ -37,6 +38,4 @@ public class GroceryOrderController {
         model.addAttribute(groceryOrderService.getById(groceryOrder.getId()));
         return "view-grocery-order";
     }
-
-
 }

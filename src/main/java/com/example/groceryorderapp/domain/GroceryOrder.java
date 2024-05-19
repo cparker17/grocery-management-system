@@ -23,7 +23,4 @@ public class GroceryOrder {
 
     @OneToMany
     private List<StockItem> stockItemsToOrder;
-
-    private LocalDate weekOfDate;
-
 }

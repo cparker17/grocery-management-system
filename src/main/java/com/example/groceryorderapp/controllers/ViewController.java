@@ -2,6 +2,8 @@ package com.example.groceryorderapp.controllers;
 
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.domain.StockItem;
+import com.example.groceryorderapp.exceptions.NoMealPlanException;
+import com.example.groceryorderapp.services.MealPlanService;
 import com.example.groceryorderapp.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,17 @@ public class ViewController {
     @Autowired
     MealService mealService;
 
+    @Autowired
+    MealPlanService mealPlanService;
+
     @RequestMapping("/home")
     public String viewHomePage(Model model) {
         model.addAttribute("meal", mealService.getTonightsMeal());
+        try {
+            model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
+        } catch (NoMealPlanException e) {
+            model.addAttribute("error", e.getMessage());
+        }
         return "home";
     }
 

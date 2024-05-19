@@ -22,13 +22,10 @@ public class ViewController {
     MealPlanService mealPlanService;
 
     @RequestMapping("/home")
-    public String viewHomePage(Model model) {
+    public String viewHomePage(Model model) throws NoMealPlanException {
         model.addAttribute("meal", mealService.getTonightsMeal());
-        try {
-            model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
-        } catch (NoMealPlanException e) {
-            model.addAttribute("error", e.getMessage());
-        }
+        model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
+
         return "home";
     }
 

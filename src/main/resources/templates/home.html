@@ -32,9 +32,9 @@
             <br>
             <div class="container">
                 <div class="row">
-                    <div th:if="${error.isEmpty()}" class="col-md-6">
-                        <ul th:each="meal : ${mealPlan.getMealList()}">
-                            <ol th:text="${meal.getKey()} + ': ' + ${meal.getValue()}">Day: Meal</ol>
+                    <div class="col-md-6">
+                        <ul th:each="mealSchedule : ${mealPlan.mealList}">
+                            <ol th:text="${mealSchedule.day} + ': ' + ${mealSchedule.meal.name}">Day: Meal</ol>
                         </ul>
                     </div>
                 </div>

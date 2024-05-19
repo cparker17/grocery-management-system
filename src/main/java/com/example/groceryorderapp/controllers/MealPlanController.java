@@ -1,9 +1,7 @@
 package com.example.groceryorderapp.controllers;
 
 import com.example.groceryorderapp.domain.MealPlan;
-import com.example.groceryorderapp.domain.MealSchedule;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
-import com.example.groceryorderapp.model.ErrorMessage;
 import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.services.MealPlanService;
 import com.example.groceryorderapp.services.MealService;
@@ -25,15 +23,10 @@ public class MealPlanController {
     MealService mealService;
 
     @RequestMapping("/view")
-    public String viewMealPlan(Model model) throws NoSuchMealException {
+    public String viewMealPlan(Model model) throws NoSuchMealException, NoMealPlanException {
         model.addAttribute("meals", mealService.getAllMeals());
-        try {
-            model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
-        } catch (NoMealPlanException e) {
-            model.addAttribute("error", new ErrorMessage(e.getMessage()));
-            model.addAttribute("mealPlan", new MealPlan(new ArrayList<>()));
-            return "new-meal-plan";
-        }
+        model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
+
         return "new-meal-plan";
     }
 

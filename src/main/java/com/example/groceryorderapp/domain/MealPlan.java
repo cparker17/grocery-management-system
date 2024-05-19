@@ -1,6 +1,8 @@
 package com.example.groceryorderapp.domain;
 
 import com.example.groceryorderapp.model.Day;
+import com.example.groceryorderapp.repositories.StockItemRepo;
+import com.example.groceryorderapp.services.impl.MealScheduleFactory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +26,13 @@ public class MealPlan {
 
     public MealPlan(List<MealSchedule> mealList) {
         this.mealList = mealList;
-        mealList.add(new MealSchedule(Day.SUNDAY.name(), new Meal()));
-        mealList.add(new MealSchedule(Day.MONDAY.name(), new Meal()));
-        mealList.add(new MealSchedule(Day.TUESDAY.name(), new Meal()));
-        mealList.add(new MealSchedule(Day.WEDNESDAY.name(), new Meal()));
-        mealList.add(new MealSchedule(Day.THURSDAY.name(), new Meal()));
-        mealList.add(new MealSchedule(Day.FRIDAY.name(), new Meal()));
-        mealList.add(new MealSchedule(Day.SATURDAY.name(), new Meal()));
+        MealScheduleFactory mealScheduleFactory = new MealScheduleFactory();
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.SUNDAY));
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.MONDAY));
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.TUESDAY));
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.WEDNESDAY));
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.THURSDAY));
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.FRIDAY));
+        mealList.add(mealScheduleFactory.createNewMealSchedule(Day.SATURDAY));
     }
 }

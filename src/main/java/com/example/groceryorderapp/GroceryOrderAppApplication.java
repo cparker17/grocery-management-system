@@ -2,7 +2,9 @@ package com.example.groceryorderapp;
 
 import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.domain.MealPlan;
 import com.example.groceryorderapp.repositories.IngredientRepo;
+import com.example.groceryorderapp.repositories.MealPlanRepo;
 import com.example.groceryorderapp.repositories.MealRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +31,9 @@ public class GroceryOrderAppApplication {
     @Autowired
     IngredientRepo ingredientRepo;
 
+    @Autowired
+    MealPlanRepo mealPlanRepo;
+
     public static void main(String[] args) {
         SpringApplication.run(GroceryOrderAppApplication.class, args);
     }
@@ -36,6 +41,11 @@ public class GroceryOrderAppApplication {
     @Bean
     public CommandLineRunner loadInitialData() {
         return (args) -> {
+            if (mealPlanRepo.findById(1L).isEmpty()) {
+                MealPlan mealPlan = new MealPlan(new ArrayList<>());
+                mealPlanRepo.save(mealPlan);
+            }
+
             if (mealRepo.findAll().isEmpty()) {
                 try {
                     Ingredient ingredient1 = new Ingredient("2 cups of this ingredient");

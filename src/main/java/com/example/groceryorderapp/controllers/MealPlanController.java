@@ -41,6 +41,4 @@ public class MealPlanController {
         mealPlanService.createMealPlan(mealPlan);
         return "redirect:/meal-plan/view";
     }
-
-
 }

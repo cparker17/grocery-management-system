@@ -1,8 +1,6 @@
 package com.example.groceryorderapp.domain;
 
 import com.example.groceryorderapp.model.Day;
-import com.example.groceryorderapp.repositories.StockItemRepo;
-import com.example.groceryorderapp.services.impl.MealScheduleFactory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

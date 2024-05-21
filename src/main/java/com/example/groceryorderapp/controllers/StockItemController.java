@@ -42,9 +42,15 @@ public class StockItemController {
         return "redirect:/stock-item/view-all";
     }
 
+    @RequestMapping("/edit/{id}")
+    public String editStockItem(Model model, @PathVariable(name = "id") Long id) throws NoSuchStockItemException {
+        model.addAttribute("stockItem", stockItemService.getStockItem(id));
+        return "update-stock-item";
+    }
+
     @RequestMapping("/update")
     public String updateStockItem(@ModelAttribute("stockItem")StockItem stockItem) throws NoSuchStockItemException {
         stockItemService.updateStockItem(stockItem);
-        return "view-all-stock-items";
+        return "redirect:/stock-item/view-all";
     }
 }

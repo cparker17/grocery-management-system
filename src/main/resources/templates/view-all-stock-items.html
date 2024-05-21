@@ -16,29 +16,83 @@
     <a th:href="@{/stock-item/create}" class=" btn btn-outline-dark bg-light">Add New Stock Item</a>
 </div>
 <br>
-<div class="container d-flex justify-content-center">
+<div class="container justify-content-center">
     <div class="row">
         <div class="col">
+            <h3 class="text-center">Freezer Stock</h3>
             <table class="table table-striped border border-dark">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Location</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="stockItem : ${stockItems}">
+                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.location.equalsIgnoreCase('Freezer')}">
                     <td th:text="${stockItem.id}">Id</td>
                     <td th:text="${stockItem.name}">Name</td>
-                    <td th:text="${stockItem.location}">Location</td>
+<!--                    <td th:text="${stockItem.location}">Location</td>-->
                     <td>
-                        <a th:href="@{/stock-item/update}"
+                        <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
                                 class="btn btn-outline-dark bg-light">Update
                         </a>
                         <a th:href="@{'/stock-item/delete/' + ${stockItem.id}}"
                                 class="btn btn-outline-dark bg-light">Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Refrigerator Stock</h3>
+            <table class="table table-striped border border-dark">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.location.equalsIgnoreCase('Refrigerator')}">
+                    <td th:text="${stockItem.id}">Id</td>
+                    <td th:text="${stockItem.name}">Name</td>
+<!--                    <td th:text="${stockItem.location}">Location</td>-->
+                    <td>
+                        <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
+                           class="btn btn-outline-dark bg-light">Update
+                        </a>
+                        <a th:href="@{'/stock-item/delete/' + ${stockItem.id}}"
+                           class="btn btn-outline-dark bg-light">Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <h3 class="text-center">Cabinet Stock</h3>
+            <table class="table table-striped border border-dark">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.location.equalsIgnoreCase('Cabinet')}">
+                    <td th:text="${stockItem.id}">Id</td>
+                    <td th:text="${stockItem.name}">Name</td>
+<!--                    <td th:text="${stockItem.location}">Location</td>-->
+                    <td>
+                        <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
+                           class="btn btn-outline-dark bg-light">Update
+                        </a>
+                        <a th:href="@{'/stock-item/delete/' + ${stockItem.id}}"
+                           class="btn btn-outline-dark bg-light">Delete
                         </a>
                     </td>
                 </tr>

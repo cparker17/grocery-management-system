@@ -10,5 +10,49 @@
 <body>
 <div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br>
+<h1 class="text-center">Stock Item Update</h1>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="#" th:action="@{/stock-item/update}" th:object="${stockItem}">
+                <table border="0" cellpadding="10">
+                    <tr>
+                        <td>Stock Item ID:</td>
+                        <td><input type="text" th:field="*{id}" readonly/></td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td><input type="text" th:field="*{name}" required/></td>
+                    </tr>
+                    <tr>
+                        <td>Location:</td>
+                        <ul class="dropdown dropdown-outline-dark">
+                            <select th:field="*{location}">
+                                <li>
+                                    <option class="dropdown-item" th:value="Refrigerator">Refrigerator</option>
+                                </li>
+                                <li>
+                                    <option class="dropdown-item" th:value="Freezer">Freezer</option>
+                                </li>
+                                <li>
+                                    <option class="dropdown-item" th:value="Cabinet">Cabinet</option>
+                                </li>
+                                <li>
+                                    <option class="dropdown-item" th:value="Pantry">Pantry</option>
+                                </li>
+                            </select>
+                        </ul>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="btn btn-light text-dark border-dark">Save</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

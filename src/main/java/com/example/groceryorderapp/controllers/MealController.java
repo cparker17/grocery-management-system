@@ -17,9 +17,8 @@ public class MealController {
 
     @RequestMapping("/save")
     public String saveMeal(Model model, @ModelAttribute("meal") Meal meal) throws NoSuchMealException {
-        System.out.println(meal.toString());
         model.addAttribute("meal", mealService.saveMeal(meal));
-        return "view-meal";
+        return "redirect:/meals/view-all";
     }
 
     @RequestMapping("/update")

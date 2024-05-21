@@ -16,19 +16,19 @@
     <div class="row justify-content-center">
         <div class="col-sm-4" >
             <div class="mb-3" >
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}">
             </div>
             <div class="mb-3">
-                <label for="recipe" class="form-label">Recipe</label>
+                <label for="recipe" class="form-label">Recipe:</label>
                 <input type="text" class="form-control" id="recipe" th:field="*{recipe}">
             </div>
-            <div class="mb-3 align-text-center">
-                <h2>Enter each ingredient</h2>
+            <div class="mb-3 ">
+                <p>Enter each ingredient:</p>
             </div>
             <div th:each="ingredient, stat : ${meal.ingredients}">
                 <div class="mb-3">
-                    <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].getDescription}">
+                    <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].description}">
                 </div>
             </div>
             <div class="row justify-content-center">

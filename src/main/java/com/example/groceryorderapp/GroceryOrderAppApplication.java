@@ -80,7 +80,6 @@ public class GroceryOrderAppApplication {
                         }
                         Meal meal = Meal.builder()
                                 .name(rowData.get(0))
-                                .recipe(rowData.get(1))
                                 .ingredients(List.of(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5))
                                 .build();
                         mealToPersist.add(meal);

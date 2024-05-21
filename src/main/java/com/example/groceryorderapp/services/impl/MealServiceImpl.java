@@ -63,7 +63,6 @@ public class MealServiceImpl implements MealService {
         // *** TEST OBJECT ***
         return Meal.builder()
                 .name("Chicken Caesar Salad")
-                .recipe("Lettuce, chicken...")
                 .ingredients(List.of(Ingredient.builder().description("Cut lettuce, bake chicken").build()))
                 .build();
     }

@@ -27,9 +27,8 @@ public class Meal {
     @ManyToMany
     private List<Ingredient> ingredients;
 
-    @NotNull
-    @Column(length = 1000)
-    private String recipe;
+    @OneToMany
+    private List<RecipeInstruction> recipe;
 
     public Meal(Integer num) {
         numberOfIngredients = num;

@@ -16,8 +16,15 @@ public class GroceryOrderController {
     @Autowired
     GroceryOrderService groceryOrderService;
 
+
+    @RequestMapping("/new")
+    public String createGroceryOrder(Model model) {
+        model.addAttribute("order", new GroceryOrder());
+        return "new-grocery-order";
+    }
+
     @RequestMapping("/save")
-    public String createGroceryOrder(Model model, @ModelAttribute("groceryOrder")GroceryOrder groceryOrder) {
+    public String saveGroceryOrder(Model model, @ModelAttribute("groceryOrder")GroceryOrder groceryOrder) {
         model.addAttribute(groceryOrderService.addGroceryOrder(groceryOrder));
         return "view-grocery-order";
     }

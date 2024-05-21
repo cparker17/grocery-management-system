@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface MealScheduleService {
-    public MealSchedule persistNewMealSchedule(MealSchedule mealSchedule);
+    MealSchedule persistNewMealSchedule(MealSchedule mealSchedule);
 }

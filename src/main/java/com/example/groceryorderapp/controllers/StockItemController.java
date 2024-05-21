@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +17,12 @@ public class StockItemController {
 
     @Autowired
     StockItemService stockItemService;
+
+    @RequestMapping("/create")
+    public String createNewStockItem(Model model) {
+        model.addAttribute("stockItem", new StockItem());
+        return "new-stock-item";
+    }
 
     @RequestMapping("/new")
     public String addStockItem(Model model, @ModelAttribute("stockItem") StockItem stockItem){
@@ -29,15 +36,15 @@ public class StockItemController {
         return "view-all-stock-items";
     }
 
-    @RequestMapping("/delete")
-    public String deleteStockItem(@ModelAttribute("stockItem") StockItem stockItem) throws NoSuchStockItemException {
-        stockItemService.deleteStockItem(stockItem.getId());
-        return "redirect:/view-all";
+    @RequestMapping("/delete/{id}")
+    public String deleteStockItem(@PathVariable(name="id") Long id) throws NoSuchStockItemException {
+        stockItemService.deleteStockItem(id);
+        return "redirect:/stock-item/view-all";
     }
 
     @RequestMapping("/update")
-    public String updateStockItem(@ModelAttribute("stockItem") StockItem stockItem) throws NoSuchStockItemException {
+    public String updateStockItem(@ModelAttribute("stockItem")StockItem stockItem) throws NoSuchStockItemException {
         stockItemService.updateStockItem(stockItem);
-        return "redirect:/view-all";
+        return "view-all-stock-items";
     }
 }

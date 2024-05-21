@@ -12,26 +12,34 @@
 <h1 class="text-center">Meals</h1>
 <br>
 <div class="container d-flex justify-content-center">
-    <table class="table table-striped border border-dark">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="meal : ${meals}">
-            <td th:text="${meal.id}">Id</td>
-            <td th:text="${meal.name}">Name</td>
-            <td>
-                <button th:href="@{'meal/view/' + ${meal.id}}" class="btn btn-outline-dark bg-light">View</button>
-                <button th:href="@{'meal/update/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Update</button>
-                <button th:href="@{'meal/delete/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Delete</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped border border-dark">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="meal : ${meals}">
+                    <td th:text="${meal.id}">Id</td>
+                    <td th:text="${meal.name}">Name</td>
+                    <td>
+                        <a th:href="@{'meal/view/' + ${meal.id}}" class="btn btn-outline-dark bg-light">View
+                        </a>
+                        <a th:href="@{'meal/update/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Update
+                        </a>
+                        <a th:href="@{'meal/delete/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

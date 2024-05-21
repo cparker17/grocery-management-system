@@ -50,12 +50,11 @@ public class StockItemServiceImpl implements StockItemService {
         if (stockItemRepo.findById(stockItem.getId()).isEmpty()) {
             throw new NoSuchStockItemException("A stock item with this id does not exist.");
         }
-        StockItem stockItemToPersist = new StockItem();
-        stockItemToPersist.builder()
+        
+        stockItemRepo.save(StockItem.builder()
                 .id(stockItem.getId())
                 .name(stockItem.getName())
                 .location(stockItem.getLocation())
-                .build();
-        stockItemRepo.save(stockItemToPersist);
+                .build());
     }
 }

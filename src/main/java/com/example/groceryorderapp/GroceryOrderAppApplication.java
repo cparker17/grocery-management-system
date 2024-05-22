@@ -44,10 +44,10 @@ public class GroceryOrderAppApplication {
     public CommandLineRunner loadInitialData() {
         return (args) -> {
 
-            if (mealPlanRepo.findById(1L).isEmpty()) {
-                MealPlan mealPlan = new MealPlan(new ArrayList<>());
-                mealPlanRepo.save(mealPlan);
-            }
+//            if (mealPlanRepo.findById(1L).isEmpty()) {
+//                MealPlan mealPlan = new MealPlan(new ArrayList<>());
+//                mealPlanRepo.save(mealPlan);
+//            }
 
             if (mealRepo.findAll().isEmpty()) {
                 try {

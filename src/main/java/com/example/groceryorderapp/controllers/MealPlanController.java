@@ -10,11 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
-@RequestMapping("meal-plan")
+@RequestMapping("/meal-plan")
 public class MealPlanController {
     @Autowired
     MealPlanService mealPlanService;
@@ -30,15 +29,19 @@ public class MealPlanController {
         return "new-meal-plan";
     }
 
-    @RequestMapping("/add")
-    public String addMealPlan(Model model, @ModelAttribute("mealPlan") MealPlan mealPlan) {
-        model.addAttribute("mealPlan", new MealPlan(new ArrayList<>()));
+    @RequestMapping("/new")
+    public String newMealPlan(Model model, @ModelAttribute("mealPlan") MealPlan mealPlan) throws NoSuchMealException {
+        model.addAttribute("mealPlan",
+                mealPlanService.newMealPlan(Objects.requireNonNullElseGet(mealPlan, MealPlan::new)));
+        model.addAttribute("meals", mealService.getAllMeals());
         return "new-meal-plan";
     }
 
-    @RequestMapping("/new")
-    public String createMealPlan(@ModelAttribute("mealPlan") MealPlan mealPlan) {
-        mealPlanService.createMealPlan(mealPlan);
+    @RequestMapping("/save")
+    public String saveMealPlan(@ModelAttribute("mealPlan") MealPlan mealPlan) {
+        System.out.println("************************" + mealPlan.toString());
+        mealPlanService.saveMealPlan(mealPlan);
         return "redirect:/meal-plan/view";
     }
+
 }

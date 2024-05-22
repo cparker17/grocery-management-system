@@ -10,6 +10,13 @@
 <body>
 <div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br>
-
+<div class="container" th:object="${meal}">
+    <div class="row">
+        <div class="col">
+            <br>
+            <h1 class="text-center" th:text="*{name}">Meal Name</h1>
+        </div>
+    </div>
+</div>
 </body>
 </html>

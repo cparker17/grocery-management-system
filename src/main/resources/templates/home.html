@@ -28,13 +28,13 @@
             </div>
         </div>
         <div class="col">
-            <div class="p-3 border border-dark bg-light text-center" th:object="${mealPlan}">
-                <h2>This Week's Meal Plan</h2>
-                <br>
-                <ul th:each="mealSchedule : ${mealPlan.mealList}">
-                    <ol th:text="${mealSchedule.day} + ': ' + ${mealSchedule.meal.name}">Day: Meal</ol>
-                </ul>
-            </div>
+<!--            <div class="p-3 border border-dark bg-light text-center" th:object="${mealPlan}">-->
+<!--                <h2>This Week's Meal Plan</h2>-->
+<!--                <br>-->
+<!--                <ul th:each="mealSchedule : ${mealPlan.mealList}">-->
+<!--                    <ol th:text="${mealSchedule.day} + ': ' + ${mealSchedule.meal.name}">Day: Meal</ol>-->
+<!--                </ul>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

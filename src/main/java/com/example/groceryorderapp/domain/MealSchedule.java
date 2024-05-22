@@ -24,8 +24,12 @@ public class MealSchedule {
     @OneToOne
     private Meal meal;
 
-    MealSchedule(String day, Meal meal) {
+    public MealSchedule(String day, Meal meal) {
         this.day = day;
         this.meal = meal;
+    }
+
+    public MealSchedule(String day) {
+        this.day = day;
     }
 }

@@ -12,12 +12,16 @@
 <br>
 <h1 class="text-center">New Meal Plan</h1>
 <br>
+<div class="text-center">
+    <a th:href="@{/meal-plan/new}" class=" btn btn-outline-dark bg-light">Create New Meal Plan</a>
+</div>
+<br>
 <div class="container">
-    <form th:action="@{/meal-plan/new}">
-        <div th:each="mealSchedule : ${mealPlan.mealList}" class="row justify-content-center">
+    <form th:action="@{/meal-plan/save}" th:object="${mealPlan}">
+        <div th:each="mealSchedule : ${mealPlan.mealList}" th:value="${mealSchedule.day}" class="row justify-content-center">
             <div class="col-4">
                 <h3 class="text-center" th:text="${mealSchedule.day}">Day</h3>
-                <select class="form-select">
+                <select class="form-select" >
                     <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${mealSchedule.meal}">meal name
                     </option>
                 </select>

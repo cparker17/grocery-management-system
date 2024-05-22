@@ -3,8 +3,10 @@ package com.example.groceryorderapp.services.impl;
 import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
+import com.example.groceryorderapp.repositories.IngredientRepo;
 import com.example.groceryorderapp.repositories.MealRepo;
 import com.example.groceryorderapp.services.MealService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +18,21 @@ public class MealServiceImpl implements MealService {
     @Autowired
     MealRepo mealRepo;
 
+    @Autowired
+    IngredientRepo ingredientRepo;
+
     @Override
+    @Transactional
     public Meal saveMeal(Meal meal) {
-        Meal mealToPersist = new Meal();
-        mealToPersist.builder()
-                .name(meal.getName())
-                .ingredients(meal.getIngredients())
-                .recipe(meal.getRecipe())
-                .build();
-        return mealRepo.save(mealToPersist);
+        for (Ingredient ingredient : meal.getIngredients()) {
+            ingredientRepo.save(ingredient);
+        }
+        return mealRepo.save(meal);
     }
 
     @Override
     public void updateMeal(Meal meal) {
+
         mealRepo.save(meal);
     }
 
@@ -41,7 +45,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal viewMeal(Long id) throws NoSuchMealException{
+    public Meal getMeal(Long id) throws NoSuchMealException{
         Optional<Meal> mealOptional = mealRepo.findById(id);
         if (mealOptional.isEmpty()) {
             throw new NoSuchMealException("A meal with that id does not exist");

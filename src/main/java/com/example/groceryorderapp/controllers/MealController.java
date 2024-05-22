@@ -2,11 +2,13 @@ package com.example.groceryorderapp.controllers;
 
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
+import com.example.groceryorderapp.repositories.MealRepo;
 import com.example.groceryorderapp.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,21 +23,27 @@ public class MealController {
         return "redirect:/meals/view-all";
     }
 
+    @RequestMapping("/edit/{id}")
+    public String viewEditMealPage(Model model, @PathVariable(name="id") long id) throws NoSuchMealException {
+        model.addAttribute("meal", mealService.getMeal(id));
+        return "update-meal";
+    }
+
     @RequestMapping("/update")
     public String updateMeal(@ModelAttribute("meal") Meal meal) throws NoSuchMealException {
         mealService.updateMeal(meal);
-        return "redirect:/dashboard";
+        return "redirect:/meals/view-all";
     }
 
-    @RequestMapping("/delete")
-    public String deleteMeal(@ModelAttribute("meal") Meal meal) throws NoSuchMealException {
-        mealService.deleteMeal(meal.getId());
-        return "redirect:/dashboard";
+    @RequestMapping("/delete/{id}")
+    public String deleteMeal(@PathVariable(name="id")Long id) throws NoSuchMealException {
+        mealService.deleteMeal(id);
+        return "redirect:/meals/view-all";
     }
 
-    @RequestMapping("/view")
-    public String viewMeal(Model model, @ModelAttribute("meal") Meal meal) throws NoSuchMealException {
-        model.addAttribute("meal", mealService.viewMeal(meal.getId()));
+    @RequestMapping("/view/{id}")
+    public String viewMeal(Model model, @PathVariable(name="id")Long id) throws NoSuchMealException {
+        model.addAttribute("meal", mealService.getMeal(id));
         return "view-meal";
     }
 

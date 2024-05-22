@@ -31,11 +31,11 @@
                     <td th:text="${meal.id}">Id</td>
                     <td th:text="${meal.name}">Name</td>
                     <td>
-                        <a th:href="@{'meal/view/' + ${meal.id}}" class="btn btn-outline-dark bg-light">View
+                        <a th:href="@{'/meals/view/' + ${meal.id}}" class="btn btn-outline-dark bg-light">View
                         </a>
-                        <a th:href="@{'meal/update/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Update
+                        <a th:href="@{'/meals/edit/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Update
                         </a>
-                        <a th:href="@{'meal/delete/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Delete
+                        <a th:href="@{'/meals/delete/' + ${meal.id}}" class="btn btn-outline-dark bg-light">Delete
                         </a>
                     </td>
                 </tr>

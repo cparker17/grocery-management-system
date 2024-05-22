@@ -10,46 +10,34 @@
 <body>
 <div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br>
-<h1 class="text-center">Stock Item Update</h1>
+<h1 class="text-center">Update Stock Item</h1>
 <br>
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <form action="#" th:action="@{/stock-item/update}" th:object="${stockItem}">
-                <table border="0" cellpadding="10">
-                    <tr>
-                        <td>Stock Item ID:</td>
-                        <td><input type="text" th:field="*{id}" readonly/></td>
-                    </tr>
-                    <tr>
-                        <td>Name:</td>
-                        <td><input type="text" th:field="*{name}" required/></td>
-                    </tr>
-                    <tr>
-                        <td>Location:</td>
-                        <ul class="dropdown dropdown-outline-dark">
-                            <select th:field="*{location}">
-                                <li>
-                                    <option class="dropdown-item" th:value="Refrigerator">Refrigerator</option>
-                                </li>
-                                <li>
-                                    <option class="dropdown-item" th:value="Freezer">Freezer</option>
-                                </li>
-                                <li>
-                                    <option class="dropdown-item" th:value="Cabinet">Cabinet</option>
-                                </li>
-                                <li>
-                                    <option class="dropdown-item" th:value="Pantry">Pantry</option>
-                                </li>
-                            </select>
-                        </ul>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <button type="submit" class="btn btn-light text-dark border-dark">Save</button>
-                        </td>
-                    </tr>
-                </table>
+    <div class="row justify-content-center">
+        <div class="col-md-4 ">
+            <form th:action="@{/stock-item/update}" th:object="${stockItem}">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Id</span>
+                    <input type="text" class="form-control" th:field="*{id}" readonly>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Name</span>
+                    <input type="text" class="form-control" th:field="*{name}">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Select Location:</span>
+                    <select class="form-select" th:field="*{location}">
+                        <option th:value="Freezer">Freezer</option>
+                        <option th:value="Refrigerator">Refrigerator</option>
+                        <option th:value="Cabinet">Cabinet</option>
+                    </select>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-2">
+                        <br>
+                        <button type="submit" class="btn btn-outline-dark bg-light">Save</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

@@ -27,7 +27,7 @@ public class StockItemController {
     @RequestMapping("/new")
     public String addStockItem(Model model, @ModelAttribute("stockItem") StockItem stockItem){
         model.addAttribute(stockItemService.addStockItem(stockItem));
-        return "view-stock-item";
+        return "redirect:/stock-item/view-all";
     }
 
     @RequestMapping("/view-all")

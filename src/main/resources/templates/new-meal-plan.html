@@ -17,14 +17,16 @@
 </div>
 <br>
 <div class="container">
-    <form th:action="@{/meal-plan/save}" th:object="${mealPlan}">
-        <div th:each="mealSchedule : ${mealPlan.mealList}" th:value="${mealSchedule.day}" class="row justify-content-center">
+    <form th:action="@{/meal-plan/save}" >
+        <div th:each="scheduledMeal : ${mealPlanWrapper.mealSchedule}" class="row justify-content-center">
             <div class="col-4">
-                <h3 class="text-center" th:text="${mealSchedule.day}">Day</h3>
-                <select class="form-select" >
-                    <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${mealSchedule.meal}">meal name
-                    </option>
-                </select>
+                <h3 class="text-center" th:text="${scheduledMeal.key}">Day</h3>
+                <div>
+                    <select class="form-select" th:field="*{scheduledMeal.value}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
                 <br>
             </div>
         </div>

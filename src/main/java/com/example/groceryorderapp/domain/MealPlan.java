@@ -1,17 +1,16 @@
 package com.example.groceryorderapp.domain;
 
+import com.example.groceryorderapp.model.Day;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 @Builder
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class MealPlan {
     @Id
@@ -19,5 +18,15 @@ public class MealPlan {
     private Long id;
 
     @OneToMany
-    private List<MealSchedule> mealList;
+    private List<Meal> mealList;
+
+    @Transient
+    private Map<Day, Meal> mealSchedule;
+
+    public MealPlan() {
+        this.mealSchedule = new LinkedHashMap<>();
+        for (Day day : Day.values()) {
+            mealSchedule.put(day, new Meal());
+        }
+    }
 }

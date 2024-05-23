@@ -10,7 +10,28 @@
 <body>
 <div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br>
-<h1>View Meal Plan</h1>
+<h1 class="text-center">Meal Plan</h1>
+<br>
+<div class="container" th:object="${mealPlan}">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <table class="table table-striped border border-dark">
+                <thead>
+                <tr>
+                    <th>Day of the Week</th>
+                    <th>Meal Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="meal : ${mealPlan.mealSchedule}">
+                    <td th:text="${meal.key}">Day</td>
+                    <td th:text="${meal.value}">Name</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

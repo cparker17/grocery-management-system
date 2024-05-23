@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/meal-plan")
@@ -25,7 +24,7 @@ public class MealPlanController {
     @RequestMapping("/view")
     public String viewMealPlan(Model model) throws NoSuchMealException, NoMealPlanException {
         MealPlan mealPlan = mealPlanService.getCurrentMealPlan();
-        if (mealPlan.getMealList() == null) {
+        if (mealPlan.getMeals().isEmpty()) {
             return "redirect:/meal-plan/new";
         }
         model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
@@ -44,5 +43,4 @@ public class MealPlanController {
         mealPlanService.saveMealPlan(mealPlanWrapper);
         return "redirect:/meal-plan/view";
     }
-
 }

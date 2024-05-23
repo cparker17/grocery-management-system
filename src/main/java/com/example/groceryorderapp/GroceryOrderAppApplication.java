@@ -30,9 +30,6 @@ public class GroceryOrderAppApplication {
     @Autowired
     IngredientRepo ingredientRepo;
 
-    @Autowired
-    MealPlanRepo mealPlanRepo;
-
     public static void main(String[] args) {
         SpringApplication.run(GroceryOrderAppApplication.class, args);
     }

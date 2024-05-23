@@ -16,13 +16,61 @@
     <a th:href="@{/meal-plan/new}" class=" btn btn-outline-dark bg-light">Create New Meal Plan</a>
 </div>
 <br>
-<div class="container">
-    <form th:action="@{/meal-plan/save}" >
-        <div th:each="scheduledMeal : ${mealPlanWrapper.mealSchedule}" class="row justify-content-center">
+<div class="container" th:object="${mealPlanWrapper}">
+    <form th:action="@{/meal-plan/save}">
+        <div class="row justify-content-center">
             <div class="col-4">
-                <h3 class="text-center" th:text="${scheduledMeal.key}">Day</h3>
+                <h3 class="text-center">Sunday</h3>
                 <div>
-                    <select class="form-select" th:field="*{scheduledMeal.value}">
+                    <select class="form-select" th:field="*{sundayMeal}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <h3 class="text-center">Monday</h3>
+                <div>
+                    <select class="form-select" th:field="*{mondayMeal}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <h3 class="text-center">Tuesday</h3>
+                <div>
+                    <select class="form-select" th:field="*{tuesdayMeal}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <h3 class="text-center">Wednesday</h3>
+                <div>
+                    <select class="form-select" th:field="*{wednesdayMeal}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <h3 class="text-center">Thursday</h3>
+                <div>
+                    <select class="form-select" th:field="*{thursdayMeal}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <h3 class="text-center">Friday</h3>
+                <div>
+                    <select class="form-select" th:field="*{fridayMeal}">
+                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <h3 class="text-center">Saturday</h3>
+                <div>
+                    <select class="form-select" th:field="*{saturdayMeal}">
                         <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
                         </option>
                     </select>

@@ -16,7 +16,8 @@
     <div class="row">
         <div class="col">
             <div class="p-3 border  border-dark bg-light text-center" th:object="${meal}">
-                <h2 th:text="'Tonight\'s Dinner: ' + *{name}">Tonight's Dinner: Meal Name</h2>
+                <h2>Tonight's Dinner:</h2>
+                <h3 th:text="*{name}">Meal Name</h3>
                 <br>
                 <h4>Ingredients</h4>
                 <ul th:each="ingredient : ${meal.ingredients}">
@@ -28,13 +29,47 @@
             </div>
         </div>
         <div class="col">
-<!--            <div class="p-3 border border-dark bg-light text-center" th:object="${mealPlan}">-->
-<!--                <h2>This Week's Meal Plan</h2>-->
-<!--                <br>-->
-<!--                <ul th:each="mealSchedule : ${mealPlan.mealList}">-->
-<!--                    <ol th:text="${mealSchedule.day} + ': ' + ${mealSchedule.meal.name}">Day: Meal</ol>-->
-<!--                </ul>-->
-<!--            </div>-->
+            <div class="p-3 border border-dark bg-light text-center" th:object="${mealPlan}">
+                <h2>This Week's Dinner Schedule</h2>
+                <br>
+                <table class="table table-striped border border-dark">
+                    <thead>
+                    <tr>
+                        <th>Day of the Week</th>
+                        <th>Meal Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Sunday:</td>
+                        <td th:text="${mealPlan.meals.get(0).name}">Name</td>
+                    </tr>
+                    <tr>
+                        <td>Monday:</td>
+                        <td th:text="${mealPlan.meals.get(1).name}">Name</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday:</td>
+                        <td th:text="${mealPlan.meals.get(2).name}">Name</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday:</td>
+                        <td th:text="${mealPlan.meals.get(3).name}">Name</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday:</td>
+                        <td th:text="${mealPlan.meals.get(4).name}">Name</td>
+                    </tr><tr>
+                        <td>Friday:</td>
+                        <td th:text="${mealPlan.meals.get(5).name}">Name</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday:</td>
+                        <td th:text="${mealPlan.meals.get(6).name}">Name</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

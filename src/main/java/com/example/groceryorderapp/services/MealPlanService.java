@@ -8,6 +8,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MealPlanService {
     MealPlan getCurrentMealPlan() throws NoMealPlanException;
-    MealPlan newMealPlan(MealPlan mealPlan);
     void saveMealPlan(MealPlanWrapper mealPlan);
 }

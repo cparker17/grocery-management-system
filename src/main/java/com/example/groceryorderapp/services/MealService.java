@@ -1,6 +1,7 @@
 package com.example.groceryorderapp.services;
 
 import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,5 @@ public interface MealService {
 
     List<Meal> getAllMeals() throws NoSuchMealException;
 
-    Meal getTonightsMeal();
+    Meal getTonightsMeal() throws NoMealPlanException;
 }

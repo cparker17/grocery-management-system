@@ -25,7 +25,6 @@ public class ViewController {
     public String viewHomePage(Model model) throws NoMealPlanException {
         model.addAttribute("meal", mealService.getTonightsMeal());
         model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
-
         return "home";
     }
 

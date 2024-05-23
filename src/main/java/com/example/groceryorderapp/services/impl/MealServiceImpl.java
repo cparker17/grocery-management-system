@@ -2,14 +2,19 @@ package com.example.groceryorderapp.services.impl;
 
 import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.domain.MealPlan;
+import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.repositories.IngredientRepo;
+import com.example.groceryorderapp.repositories.MealPlanRepo;
 import com.example.groceryorderapp.repositories.MealRepo;
+import com.example.groceryorderapp.services.MealPlanService;
 import com.example.groceryorderapp.services.MealService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +25,9 @@ public class MealServiceImpl implements MealService {
 
     @Autowired
     IngredientRepo ingredientRepo;
+
+    @Autowired
+    MealPlanRepo mealPlanRepo;
 
     @Override
     @Transactional
@@ -32,7 +40,6 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void updateMeal(Meal meal) {
-
         mealRepo.save(meal);
     }
 
@@ -45,7 +52,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal getMeal(Long id) throws NoSuchMealException{
+    public Meal getMeal(Long id) throws NoSuchMealException {
         Optional<Meal> mealOptional = mealRepo.findById(id);
         if (mealOptional.isEmpty()) {
             throw new NoSuchMealException("A meal with that id does not exist");
@@ -63,11 +70,39 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal getTonightsMeal() {
-        // *** TEST OBJECT ***
-        return Meal.builder()
-                .name("Chicken Caesar Salad")
-                .ingredients(List.of(Ingredient.builder().description("Cut lettuce, bake chicken").build()))
-                .build();
+    public Meal getTonightsMeal() throws NoMealPlanException {
+        Optional<MealPlan> mealPlanOptional = mealPlanRepo.findById(1L);
+
+        if (mealPlanOptional.isEmpty()) {
+            throw new NoMealPlanException("No meal plan completed.");
+        } else {
+            MealPlan mealPlan = mealPlanOptional.get();
+            List<Meal> mealSchedule = mealPlan.getMeals();
+
+            switch (LocalDate.now().getDayOfWeek()) {
+                case SUNDAY -> {
+                    return mealSchedule.get(0);
+                }
+                case MONDAY -> {
+                    return mealSchedule.get(1);
+                }
+                case TUESDAY -> {
+                    return mealSchedule.get(2);
+                }
+                case WEDNESDAY -> {
+                    return mealSchedule.get(3);
+                }
+                case THURSDAY -> {
+                    return mealSchedule.get(4);
+                }
+                case FRIDAY -> {
+                    return mealSchedule.get(5);
+                }
+                case SATURDAY -> {
+                    return mealSchedule.get(6);
+                }
+            }
+        }
+        return null;
     }
 }

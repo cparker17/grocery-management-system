@@ -4,19 +4,21 @@ import com.example.groceryorderapp.domain.Meal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class MealPlanWrapper {
-    private Map<Day, Meal> mealSchedule;
-
-    public MealPlanWrapper() {
-        this.mealSchedule = new LinkedHashMap<>();
-        for (Day day : Day.values()) {
-            mealSchedule.put(day, new Meal());
-        }
-    }
+    private String sundayMeal;
+    private String mondayMeal;
+    private String tuesdayMeal;
+    private String wednesdayMeal;
+    private String thursdayMeal;
+    private String fridayMeal;
+    private String saturdayMeal;
 }

@@ -23,9 +23,32 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="meal : ${mealPlan.mealSchedule}">
-                    <td th:text="${meal.key}">Day</td>
-                    <td th:text="${meal.value}">Name</td>
+                <tr>
+                    <td>Sunday:</td>
+                    <td th:text="${mealPlan.meals.get(0).name}">Name</td>
+                </tr>
+                <tr>
+                    <td>Monday:</td>
+                    <td th:text="${mealPlan.meals.get(1).name}">Name</td>
+                </tr>
+                <tr>
+                    <td>Tuesday:</td>
+                    <td th:text="${mealPlan.meals.get(2).name}">Name</td>
+                </tr>
+                <tr>
+                    <td>Wednesday:</td>
+                    <td th:text="${mealPlan.meals.get(3).name}">Name</td>
+                </tr>
+                <tr>
+                    <td>Thursday:</td>
+                    <td th:text="${mealPlan.meals.get(4).name}">Name</td>
+                </tr><tr>
+                    <td>Friday:</td>
+                    <td th:text="${mealPlan.meals.get(5).name}">Name</td>
+                </tr>
+                <tr>
+                    <td>Saturday:</td>
+                    <td th:text="${mealPlan.meals.get(6).name}">Name</td>
                 </tr>
                 </tbody>
             </table>

@@ -18,4 +18,8 @@ public class RecipeInstruction {
     private Long id;
 
     private String instruction;
+
+    public RecipeInstruction (String instruction) {
+        this.instruction = instruction;
+    }
 }

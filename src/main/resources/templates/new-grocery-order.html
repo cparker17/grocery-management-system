@@ -12,18 +12,69 @@
 <br>
 <h3 class="text-center">Select Items to Order</h3>
 <br>
-<div class="container">
-    <div class="row">
-        <div class="col-4">
-            <h5 class="text-center">Freezer Items</h5>
+<div class="container" th:object="${groceryOrderWrapper}">
+    <form th:action="@{/grocery-order/create}">
+        <div class="row">
+
+            <div class="col-4">
+                <h5 class="text-center">Freezer Items</h5>
+                <ul class="list-group" th:each="itemToOrder : ${freezerItemsToOrder.stockItemsToOrder}">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-1" id="freezerStock"
+                               th:field="*{itemsToOrder}" th:value="${itemToOrder.name}">
+                        <label for="freezerStock" th:text="${itemToOrder.name}">Item</label>
+                    </li>
+                </ul>
+                <ul class="list-group" th:each="itemToOrder : ${freezerItemsToOrder.ingredientsToOrder}">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-1" id="freezerIngredient"
+                               th:field="*{itemsToOrder}" th:value="${itemToOrder.description}">
+                        <label for="freezerIngredient" th:text="${itemToOrder.description}">Item</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <h5 class="text-center">Refrigerator Items</h5>
+                <ul class="list-group" th:each="itemToOrder : ${refrigeratorItemsToOrder.stockItemsToOrder}">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-1" id="refrigeratorStock"
+                               th:field="*{itemsToOrder}" th:value="${itemToOrder.name}">
+                        <label for="refrigeratorStock" th:text="${itemToOrder.name}">Item</label>
+                    </li>
+                </ul>
+                <ul class="list-group" th:each="itemToOrder : ${refrigeratorItemsToOrder.ingredientsToOrder}">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-1" id="refrigeratorIngredient"
+                               th:field="*{itemsToOrder}" th:value="${itemToOrder.description}">
+                        <label for="refrigeratorIngredient" th:text="${itemToOrder.description}">Item</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <h5 class="text-center">Cabinet Items</h5>
+                <ul class="list-group" th:each="itemToOrder : ${cabinetItemsToOrder.stockItemsToOrder}">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-1" id="cabinetStock"
+                               th:field="*{itemsToOrder}" th:value="${itemToOrder.name}">
+                        <label for="cabinetStock" th:text="${itemToOrder.name}">Item</label>
+                    </li>
+                </ul>
+                <ul class="list-group" th:each="itemToOrder : ${cabinetItemsToOrder.ingredientsToOrder}">
+                    <li class="list-group-item">
+                        <input type="checkbox" class="form-check-input me-1" id="cabinetIngredient"
+                               th:field="*{itemsToOrder}" th:value="${itemToOrder.description}">
+                        <label for="cabinetIngredient" th:text="${itemToOrder.description}">Item</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-2">
+                    <br>
+                    <button type="submit" class="btn btn-outline-dark bg-light">Save</button>
+                </div>
+            </div>
         </div>
-        <div class="col-4">
-            <h5>Refrigerator Items</h5>
-        </div>
-        <div class="col-4">
-            <h5 class="text-center">Cabinet Items</h5>
-        </div>
-    </div>
+    </form>
 </div>
 </body>
 </html>

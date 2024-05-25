@@ -14,7 +14,7 @@
 <br>
 <form th:action="@{/meals/create}" th:object="${meal}">
     <div class="row justify-content-center">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}">
@@ -23,9 +23,26 @@
                 <p>Enter each ingredient:</p>
             </div>
             <div th:each="ingredient, stat : ${meal.ingredients}">
-                <div class="mb-3">
-                    <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].description}">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="mb-3">
+                            <input type="text" class="form-control"
+                                   th:field="*{ingredients[__${stat.index}__].description}">
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Select Location:</span>
+                            <select class="form-select" th:field="*{ingredients[__${stat.index}__].locationString}">
+                                <option th:value="Freezer">Freezer</option>
+                                <option th:value="Refrigerator">Refrigerator</option>
+                                <option th:value="Cabinet">Cabinet</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
             <div class="mb-3" th:object="${recipeInstructionWrapper}">
                 <label for="recipe">Enter recipe instructions:</label>

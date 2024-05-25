@@ -15,14 +15,22 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-2">
-            <a th:hred="@{/grocery-order/setup}" class="mb-5 btn btn-outline-dark bg-light">Start New Grocery Order</a>
+            <a th:href="@{/grocery-order/setup}" class="mb-5 btn btn-outline-dark bg-light">Start New Grocery Order</a>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-6 text-center">
-            <ul class="list-group">
-                <li class="list-group-item">item</li>
+        <div class="col-4 text-center">
+            <ul class="list-group" th:each="storeItem : ${groceryOrder.itemsToOrder}">
+                <li class="list-group-item">
+                    <input type="checkbox" class="form-check-input me-1" id="items">
+                    <label for="items" th:text="${storeItem.itemToOrder}">Item</label>
+                </li>
             </ul>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center">
+        <div class="col-2 mt-5">
+            <a th:href="@{/view/home}" class="mb-5 btn btn-outline-dark bg-light">Complete</a>
         </div>
     </div>
 </div>

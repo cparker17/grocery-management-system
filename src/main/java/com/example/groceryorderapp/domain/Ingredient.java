@@ -1,14 +1,11 @@
 package com.example.groceryorderapp.domain;
 
 import com.example.groceryorderapp.enums.Location;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Table;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
@@ -29,8 +26,16 @@ public class Ingredient {
     @NotNull
     private Location location;
 
+    @Transient
+    private String locationString;
+
     public Ingredient (String description) {
         this.description = description;
+    }
+
+    public Ingredient (String description, Location location) {
+        this.description = description;
+        this.location = location;
     }
 
 }

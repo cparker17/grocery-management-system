@@ -13,4 +13,8 @@ import java.util.List;
 @Data
 public class GroceryOrderWrapper {
     private List<String> itemsToOrder;
+
+    public void addItem (String item) {
+        itemsToOrder.add(item);
+    }
 }

@@ -1,8 +1,10 @@
 package com.example.groceryorderapp.services.impl;
 
+import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.domain.MealPlan;
 import com.example.groceryorderapp.domain.RecipeInstruction;
+import com.example.groceryorderapp.enums.Location;
 import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.model.RecipeWrapper;
@@ -37,10 +39,27 @@ public class MealServiceImpl implements MealService {
     @Override
     @Transactional
     public Meal saveMeal(Meal meal, RecipeWrapper recipeWrapper) {
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (Ingredient ingredient : meal.getIngredients()) {
+            switch (ingredient.getLocationString()) {
+                case "Freezer":
+                    ingredients.add(new Ingredient(ingredient.getDescription(), Location.FREEZER));
+                    break;
+
+                case "Refrigerator":
+                    ingredients.add(new Ingredient(ingredient.getDescription(), Location.REFRIGERATOR));
+                    break;
+                case "Cabinet":
+                    ingredients.add(new Ingredient(ingredient.getDescription(), Location.CABINET));
+                    break;
+            }
+        }
+        meal.setIngredients(ingredientRepo.saveAll(ingredients));
         List<RecipeInstruction> recipe = convertRecipeWrapperToRecipeInstructionList(recipeWrapper);
+
         meal.setRecipe(recipe);
-        ingredientRepo.saveAll(meal.getIngredients());
-        recipeInstructionRepo.saveAll(recipe);
+        meal.setRecipe(recipeInstructionRepo.saveAll(recipe));
+
         return mealRepo.save(meal);
     }
 

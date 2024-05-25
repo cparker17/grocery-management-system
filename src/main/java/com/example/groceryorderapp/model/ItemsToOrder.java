@@ -7,13 +7,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class ItemsToOrder {
     List<Ingredient> ingredientsToOrder;
     List<StockItem> stockItemsToOrder;
+
+    public ItemsToOrder() {
+        this.ingredientsToOrder = new ArrayList<>();
+        this.stockItemsToOrder = new ArrayList<>();
+    }
 }

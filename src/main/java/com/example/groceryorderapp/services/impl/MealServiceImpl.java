@@ -1,20 +1,21 @@
 package com.example.groceryorderapp.services.impl;
 
-import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.domain.MealPlan;
+import com.example.groceryorderapp.domain.RecipeInstruction;
 import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
+import com.example.groceryorderapp.model.RecipeWrapper;
 import com.example.groceryorderapp.repositories.IngredientRepo;
 import com.example.groceryorderapp.repositories.MealPlanRepo;
 import com.example.groceryorderapp.repositories.MealRepo;
-import com.example.groceryorderapp.services.MealPlanService;
+import com.example.groceryorderapp.repositories.RecipeInstructionRepo;
 import com.example.groceryorderapp.services.MealService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +30,26 @@ public class MealServiceImpl implements MealService {
     @Autowired
     MealPlanRepo mealPlanRepo;
 
+    @Autowired
+    RecipeInstructionRepo recipeInstructionRepo;
+
     @Override
     @Transactional
-    public Meal saveMeal(Meal meal) {
-        for (Ingredient ingredient : meal.getIngredients()) {
-            ingredientRepo.save(ingredient);
-        }
+    public Meal saveMeal(Meal meal, RecipeWrapper recipeWrapper) {
+        List<RecipeInstruction> recipe = convertRecipeWrapperToRecipeInstructionList(recipeWrapper);
+        meal.setRecipe(recipe);
+        ingredientRepo.saveAll(meal.getIngredients());
+        recipeInstructionRepo.saveAll(recipe);
         return mealRepo.save(meal);
+    }
+
+    private List<RecipeInstruction> convertRecipeWrapperToRecipeInstructionList(RecipeWrapper recipeWrapper) {
+        List<RecipeInstruction> recipeInstructionList = new ArrayList<>();
+        String[] recipeInstructions = recipeWrapper.getRecipeInstructions().split("\\.");
+        for (String instruction : recipeInstructions) {
+            recipeInstructionList.add(new RecipeInstruction(instruction));
+        }
+        return recipeInstructionList;
     }
 
     @Override

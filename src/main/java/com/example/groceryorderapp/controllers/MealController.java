@@ -2,7 +2,7 @@ package com.example.groceryorderapp.controllers;
 
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.exceptions.NoSuchMealException;
-import com.example.groceryorderapp.repositories.MealRepo;
+import com.example.groceryorderapp.model.RecipeWrapper;
 import com.example.groceryorderapp.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +17,14 @@ public class MealController {
     @Autowired
     MealService mealService;
 
-    @RequestMapping("/save")
-    public String saveMeal(Model model, @ModelAttribute("meal") Meal meal) throws NoSuchMealException {
-        model.addAttribute("meal", mealService.saveMeal(meal));
+    @RequestMapping("/create")
+    public String createNewMeal(Model model, @ModelAttribute("meal") Meal meal, @ModelAttribute("RecipeWrapper") RecipeWrapper recipeWrapper) throws NoSuchMealException {
+        model.addAttribute("meal", mealService.saveMeal(meal, recipeWrapper));
         return "redirect:/meals/view-all";
     }
 
     @RequestMapping("/edit/{id}")
-    public String viewEditMealPage(Model model, @PathVariable(name="id") long id) throws NoSuchMealException {
+    public String editMeal(Model model, @PathVariable(name="id") long id) throws NoSuchMealException {
         model.addAttribute("meal", mealService.getMeal(id));
         return "update-meal";
     }
@@ -56,6 +56,7 @@ public class MealController {
     @RequestMapping("/add")
     public String addNewMeal(Model model, @ModelAttribute("meal") Meal meal) {
         model.addAttribute("meal", new Meal(meal.getNumberOfIngredients()));
+        model.addAttribute("recipeInstructionWrapper", new RecipeWrapper());
         return "new-meal";
     }
 }

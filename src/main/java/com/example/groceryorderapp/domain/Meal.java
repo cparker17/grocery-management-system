@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.domain;
 
+import com.sun.source.tree.BinaryTree;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;

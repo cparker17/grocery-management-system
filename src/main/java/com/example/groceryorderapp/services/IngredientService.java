@@ -11,4 +11,6 @@ public interface IngredientService {
     void updateIngredient(Ingredient ingredient);
 
     void deleteIngredient(Ingredient ingredient);
+
+    Ingredient saveIngredient(Ingredient ingredient);
 }

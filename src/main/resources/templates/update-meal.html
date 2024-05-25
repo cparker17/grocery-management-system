@@ -10,20 +10,21 @@
 <body>
 <div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br>
-<h1 class="text-center">Update Meal</h1>
+<h1 class="text-center" th:text="${meal.name}">Meal</h1>
 <br>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4 ">
             <form th:action="@{/meals/update}" th:object="${meal}">
                 <div class="input-group mb-3">
-                    <span class="input-group-text">Id</span>
-                    <input type="text" class="form-control" th:field="*{id}" readonly>
+                    <span class="input-group-text">Meal Id</span>
+                    <input type="text" class="form-control" th:text="*{id}">
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">Name</span>
+                    <span class="input-group-text">Meal Name</span>
                     <input type="text" class="form-control" th:field="*{name}">
                 </div>
+                <h5>Ingredients:</h5>
                 <div th:each="ingredient, stat : ${meal.ingredients}">
                     <div class="mb-3">
                         <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].description}">

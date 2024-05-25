@@ -15,6 +15,27 @@
         <div class="col">
             <br>
             <h1 class="text-center" th:text="*{name}">Meal Name</h1>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <div class="p-3 bg-light border border-dark text-center">
+                <h3>Ingredients</h3>
+                <br>
+                <ul th:each="ingredient : ${meal.ingredients}">
+                    <li th:text="${ingredient.description}">description</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="p-3 bg-light border border-dark text-center">
+                <h3>Recipe</h3>
+                <br>
+                <ol th:each="recipeInstruction : ${meal.recipe}">
+                    <li th:text="${recipeInstruction.instruction}">instruction</li>
+                </ol>
+            </div>
         </div>
     </div>
 </div>

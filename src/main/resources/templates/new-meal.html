@@ -12,17 +12,13 @@
 <br>
 <h1 class="text-center">Add New Meal</h1>
 <br>
-<form th:action="@{/meals/save}" th:object="${meal}">
+<form th:action="@{/meals/create}" th:object="${meal}">
     <div class="row justify-content-center">
-        <div class="col-sm-4" >
-            <div class="mb-3" >
+        <div class="col-sm-4">
+            <div class="mb-3">
                 <label for="name" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}">
             </div>
-<!--            <div class="mb-3">-->
-<!--                <label for="recipe" class="form-label">Recipe:</label>-->
-<!--                <input type="text" class="form-control" id="recipe" th:field="*{recipe}">-->
-<!--            </div>-->
             <div class="mb-3 ">
                 <p>Enter each ingredient:</p>
             </div>
@@ -30,6 +26,10 @@
                 <div class="mb-3">
                     <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].description}">
                 </div>
+            </div>
+            <div class="mb-3" th:object="${recipeInstructionWrapper}">
+                <label for="recipe">Enter recipe instructions:</label>
+                <textarea id="recipe" rows="10" class="form-control" th:field="*{recipeInstructions}"></textarea>
             </div>
             <div class="row justify-content-center">
                 <div class="col-2">

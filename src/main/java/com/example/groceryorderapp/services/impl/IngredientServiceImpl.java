@@ -35,4 +35,9 @@ public class IngredientServiceImpl implements IngredientService {
     public void deleteIngredient(Ingredient ingredient) {
         ingredientRepo.delete(ingredient);
     }
+
+    @Override
+    public Ingredient saveIngredient(Ingredient ingredient) {
+        return ingredientRepo.save(ingredient);
+    }
 }

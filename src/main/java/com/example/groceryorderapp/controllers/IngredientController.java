@@ -40,4 +40,16 @@ public class IngredientController {
         ingredientService.deleteIngredient(ingredient);
         return "redirect:/view/home";
     }
+
+    @RequestMapping("/add")
+    public String addNewIngredient(Model model) {
+        model.addAttribute("ingredient", new Ingredient());
+        return "new-ingredient";
+    }
+
+    @RequestMapping("/create")
+    public String createIngredient(Model model, @ModelAttribute("ingredient") Ingredient ingredient) {
+        model.addAttribute("ingredient", ingredientService.saveIngredient(ingredient));
+        return "view-ingredient";
+    }
 }

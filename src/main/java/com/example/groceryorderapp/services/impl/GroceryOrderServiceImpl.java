@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GroceryOrderServiceImpl implements GroceryOrderService {
@@ -109,13 +110,18 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
 
     @Override
     public GroceryOrder createGroceryOrder(GroceryOrderWrapper groceryOrderWrapper) {
+        groceryOrderRepo.deleteAll();
+
         List<StoreItem> itemsToOrder = new ArrayList<>();
         for (String itemToOrder : groceryOrderWrapper.getItemsToOrder()) {
             itemsToOrder.add(new StoreItem(itemToOrder));
         }
         GroceryOrder groceryOrderToPersist = new GroceryOrder();
         groceryOrderToPersist.setId(1L);
-        groceryOrderToPersist.setItemsToOrder(storeItemRepo.saveAll(itemsToOrder));
+        groceryOrderToPersist.setItemsToOrder(storeItemRepo.saveAll(itemsToOrder
+                .stream()
+                .distinct()
+                .collect(Collectors.toList())));
         return groceryOrderRepo.save(groceryOrderToPersist);
     }
 

@@ -1,8 +1,12 @@
 package com.example.groceryorderapp.controllers;
 
+import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
 import com.example.groceryorderapp.domain.GroceryOrder;
+import com.example.groceryorderapp.model.GroceryOrderWrapper;
 import com.example.groceryorderapp.services.GroceryOrderService;
+import com.example.groceryorderapp.services.MealPlanService;
+import com.example.groceryorderapp.services.StockItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,22 +20,32 @@ public class GroceryOrderController {
     @Autowired
     GroceryOrderService groceryOrderService;
 
+    @Autowired
+    MealPlanService mealPlanService;
 
-    @RequestMapping("/new")
-    public String createGroceryOrder(Model model) {
-        model.addAttribute("order", new GroceryOrder());
+    @Autowired
+    StockItemService stockItemService;
+
+    @RequestMapping("/setup")
+    public String setupNewGroceryOrder(Model model) throws NoMealPlanException {
+        model.addAttribute("cabinetItemsToOrder", groceryOrderService.getCabinetItemsToOrder());
+        model.addAttribute("refrigeratorItemsToOrder", groceryOrderService.getRefrigeratorItemsToOrder());
+        model.addAttribute("freezerItemsToOrder", groceryOrderService.getFreezerItemsToOrder());
+        model.addAttribute("groceryOrderWrapper", new GroceryOrderWrapper());
         return "new-grocery-order";
     }
 
-    @RequestMapping("/save")
-    public String saveGroceryOrder(Model model, @ModelAttribute("groceryOrder")GroceryOrder groceryOrder) {
-        model.addAttribute(groceryOrderService.addGroceryOrder(groceryOrder));
+    @RequestMapping("/create")
+    public String createGroceryOrder(Model model,
+                                     @ModelAttribute("groceryOrder") GroceryOrderWrapper groceryOrderWrapper) {
+        model.addAttribute("groceryOrder", groceryOrderService.createGroceryOrder(groceryOrderWrapper));
         return "view-grocery-order";
     }
 
     @RequestMapping("/update")
     public String updateGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder) {
-        return "home";
+        model.addAttribute("groceryOrder", groceryOrderService.updateGroceryOrder(groceryOrder));
+        return "view-grocery-order";
     }
 
     @RequestMapping("/delete")
@@ -40,9 +54,8 @@ public class GroceryOrderController {
     }
 
     @RequestMapping("/view")
-    public String viewGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder)
-            throws NoSuchGroceryOrderException {
-        model.addAttribute(groceryOrderService.getById(groceryOrder.getId()));
+    public String viewGroceryOrder(Model model) throws NoSuchGroceryOrderException {
+        model.addAttribute(groceryOrderService.getGroceryOrder());
         return "view-grocery-order";
     }
 }

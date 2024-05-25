@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.domain;
 
+import com.example.groceryorderapp.enums.Location;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -25,6 +26,6 @@ public class StockItem {
     @NotNull
     private String name;
 
-    private String location;
+    private Location location;
 
 }

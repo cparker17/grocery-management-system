@@ -18,16 +18,22 @@
             <form th:action="@{/meals/update}" th:object="${meal}">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Meal Id</span>
-                    <input type="text" class="form-control" th:text="*{id}">
+                    <input type="text" class="form-control" th:field="*{id}" readonly>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Meal Name</span>
                     <input type="text" class="form-control" th:field="*{name}">
                 </div>
-                <h5>Ingredients:</h5>
+                <h5 class="mt-5 text-center">Ingredients</h5>
                 <div th:each="ingredient, stat : ${meal.ingredients}">
                     <div class="mb-3">
                         <input type="text" class="form-control" th:field="*{ingredients[__${stat.index}__].description}">
+                    </div>
+                </div>
+                <h5 class="mt-5 text-center">Recipe</h5>
+                <div th:each="recipeInsrtuction, stat : ${meal.recipe}">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" th:field="*{recipe[__${stat.index}__].instruction}">
                     </div>
                 </div>
                 <div class="row justify-content-center">

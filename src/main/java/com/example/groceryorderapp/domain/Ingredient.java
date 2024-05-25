@@ -1,5 +1,6 @@
 package com.example.groceryorderapp.domain;
 
+import com.example.groceryorderapp.enums.Location;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,6 +25,9 @@ public class Ingredient {
 
     @NotNull
     private String description;
+
+    @NotNull
+    private Location location;
 
     public Ingredient (String description) {
         this.description = description;

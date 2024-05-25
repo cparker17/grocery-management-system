@@ -3,7 +3,6 @@ package com.example.groceryorderapp;
 import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
 import com.example.groceryorderapp.repositories.IngredientRepo;
-import com.example.groceryorderapp.repositories.MealPlanRepo;
 import com.example.groceryorderapp.repositories.MealRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,19 +39,19 @@ public class GroceryOrderAppApplication {
             if (mealRepo.findAll().isEmpty()) {
                 try {
                     // *** TEST DATA ***
-                    Ingredient ingredient1 = new Ingredient("2 cups of this ingredient");
+                    Ingredient ingredient1 = new Ingredient("ingredient #1");
                     ingredientRepo.save(ingredient1);
 
-                    Ingredient ingredient2 = new Ingredient("1 tsp of this ingredient");
+                    Ingredient ingredient2 = new Ingredient("ingredient #2");
                     ingredientRepo.save(ingredient2);
 
-                    Ingredient ingredient3 = new Ingredient("1/4 cup of this ingredient");
+                    Ingredient ingredient3 = new Ingredient("ingredient #3");
                     ingredientRepo.save(ingredient3);
 
-                    Ingredient ingredient4 = new Ingredient("2 tbsp of this ingredient");
+                    Ingredient ingredient4 = new Ingredient("ingredient #4");
                     ingredientRepo.save(ingredient4);
 
-                    Ingredient ingredient5 = new Ingredient("3 oz of this ingredient");
+                    Ingredient ingredient5 = new Ingredient("ingredient #5");
                     ingredientRepo.save(ingredient5);
 
                     FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir") +

@@ -17,13 +17,8 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient getIngredient(Long id) throws NoSuchIngredientException {
-        Optional<Ingredient> ingredientOptional = ingredientRepo.findById(id);
-        if (ingredientOptional.isEmpty()) {
-            throw new NoSuchIngredientException("An ingredient with this id does not exist.");
-        }
-        else {
-            return ingredientOptional.get();
-        }
+        return ingredientRepo.findById(id)
+                .orElseThrow(() -> new NoSuchIngredientException("An ingredient with this id does not exist"));
     }
 
     @Override

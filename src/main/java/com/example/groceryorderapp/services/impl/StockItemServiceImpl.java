@@ -17,12 +17,8 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public StockItem getStockItem(Long id) throws NoSuchStockItemException {
-        Optional<StockItem> optionalStockItem = stockItemRepo.findById(id);
-        if(optionalStockItem.isPresent()) {
-            return optionalStockItem.get();
-        } else {
-            throw new NoSuchStockItemException("A food item with that id does not exist.");
-        }
+        return stockItemRepo.findById(id)
+                .orElseThrow(() -> new NoSuchStockItemException("A stock item with that id does not exist"));
 
     }
 
@@ -33,8 +29,7 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public List<StockItem> getAllStockItems() {
-        List<StockItem> stockItems = stockItemRepo.findAll();
-        return stockItems;
+        return stockItemRepo.findAll();
     }
 
     @Override
@@ -50,7 +45,6 @@ public class StockItemServiceImpl implements StockItemService {
         if (stockItemRepo.findById(stockItem.getId()).isEmpty()) {
             throw new NoSuchStockItemException("A stock item with this id does not exist.");
         }
-
         stockItemRepo.save(StockItem.builder()
                 .id(stockItem.getId())
                 .name(stockItem.getName())

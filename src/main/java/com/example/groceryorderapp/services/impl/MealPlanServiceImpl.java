@@ -22,8 +22,8 @@ public class MealPlanServiceImpl implements MealPlanService {
 
     @Override
     public MealPlan getCurrentMealPlan() {
-        Optional<MealPlan> mealPlanOptional = mealPlanRepo.findById(1L);
-        return mealPlanOptional.orElseGet(MealPlan::new);
+        return mealPlanRepo.findById(1L)
+                .orElseGet(MealPlan::new);
     }
 
     @Override

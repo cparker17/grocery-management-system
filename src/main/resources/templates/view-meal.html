@@ -23,8 +23,8 @@
             <div class="p-3 bg-light border border-dark text-center">
                 <h3>Ingredients</h3>
                 <br>
-                <ul th:each="ingredient : ${meal.ingredients}">
-                    <li th:text="${ingredient.description}">description</li>
+                <ul class="list-group" th:each="ingredient : ${meal.ingredients}">
+                    <li class="list-group-item" th:text="${ingredient.description}">description</li>
                 </ul>
             </div>
         </div>
@@ -32,9 +32,9 @@
             <div class="p-3 bg-light border border-dark text-center">
                 <h3>Recipe</h3>
                 <br>
-                <ol th:each="recipeInstruction : ${meal.recipe}">
-                    <li th:text="${recipeInstruction.instruction}">instruction</li>
-                </ol>
+                <ul class="list-group" th:each="recipeInstruction : ${meal.recipe}">
+                    <li class="list-group-item" th:text="${recipeInstruction.instruction}">instruction</li>
+                </ul>
             </div>
         </div>
     </div>

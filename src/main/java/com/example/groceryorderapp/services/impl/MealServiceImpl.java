@@ -14,6 +14,7 @@ import com.example.groceryorderapp.services.MealService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +68,8 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal getMeal(Long id) throws NoSuchMealException {
-        Optional<Meal> mealOptional = mealRepo.findById(id);
-        if (mealOptional.isEmpty()) {
-            throw new NoSuchMealException("A meal with that id does not exist");
-        }
-        return mealOptional.get();
+        return mealRepo.findById(id)
+                .orElseThrow(() -> new NoSuchMealException("A meal with that id does not exist."));
     }
 
     @Override
@@ -85,36 +83,31 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal getTonightsMeal() throws NoMealPlanException {
-        Optional<MealPlan> mealPlanOptional = mealPlanRepo.findById(1L);
+        MealPlan mealPlan = mealPlanRepo.findById(1L)
+                .orElseThrow(() -> new NoMealPlanException("No meal plan completed"));
+        List<Meal> mealSchedule = mealPlan.getMeals();
 
-        if (mealPlanOptional.isEmpty()) {
-            throw new NoMealPlanException("No meal plan completed.");
-        } else {
-            MealPlan mealPlan = mealPlanOptional.get();
-            List<Meal> mealSchedule = mealPlan.getMeals();
-
-            switch (LocalDate.now().getDayOfWeek()) {
-                case SUNDAY -> {
-                    return mealSchedule.get(0);
-                }
-                case MONDAY -> {
-                    return mealSchedule.get(1);
-                }
-                case TUESDAY -> {
-                    return mealSchedule.get(2);
-                }
-                case WEDNESDAY -> {
-                    return mealSchedule.get(3);
-                }
-                case THURSDAY -> {
-                    return mealSchedule.get(4);
-                }
-                case FRIDAY -> {
-                    return mealSchedule.get(5);
-                }
-                case SATURDAY -> {
-                    return mealSchedule.get(6);
-                }
+        switch (LocalDate.now().getDayOfWeek()) {
+            case SUNDAY -> {
+                return mealSchedule.get(0);
+            }
+            case MONDAY -> {
+                return mealSchedule.get(1);
+            }
+            case TUESDAY -> {
+                return mealSchedule.get(2);
+            }
+            case WEDNESDAY -> {
+                return mealSchedule.get(3);
+            }
+            case THURSDAY -> {
+                return mealSchedule.get(4);
+            }
+            case FRIDAY -> {
+                return mealSchedule.get(5);
+            }
+            case SATURDAY -> {
+                return mealSchedule.get(6);
             }
         }
         return null;

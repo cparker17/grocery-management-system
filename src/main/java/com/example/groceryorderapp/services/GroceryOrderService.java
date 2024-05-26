@@ -13,7 +13,7 @@ import java.util.List;
 public interface GroceryOrderService { 
     GroceryOrder getGroceryOrder() throws NoSuchGroceryOrderException;
 
-    List<ItemToOrder> getGroceryItemsToOrder() throws NoMealPlanException;
+    List<ItemToOrder> getGroceryList() throws NoMealPlanException;
 
     GroceryOrder createGroceryOrder(GroceryOrderWrapper groceryOrderWrapper);
 

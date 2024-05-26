@@ -42,16 +42,9 @@ public class MealServiceImpl implements MealService {
         List<Ingredient> ingredients = new ArrayList<>();
         for (Ingredient ingredient : meal.getIngredients()) {
             switch (ingredient.getLocationString()) {
-                case "Freezer":
-                    ingredients.add(new Ingredient(ingredient.getDescription(), Location.FREEZER));
-                    break;
-
-                case "Refrigerator":
-                    ingredients.add(new Ingredient(ingredient.getDescription(), Location.REFRIGERATOR));
-                    break;
-                case "Cabinet":
-                    ingredients.add(new Ingredient(ingredient.getDescription(), Location.CABINET));
-                    break;
+                case "Freezer" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.FREEZER));
+                case "Refrigerator" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.REFRIGERATOR));
+                case "Cabinet" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.CABINET));
             }
         }
         meal.setIngredients(ingredientRepo.saveAll(ingredients));

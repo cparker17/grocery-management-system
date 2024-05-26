@@ -28,7 +28,7 @@ public class GroceryOrderController {
 
     @RequestMapping("/setup")
     public String setupNewGroceryOrder(Model model) throws NoMealPlanException {
-        model.addAttribute("groceryItems", groceryOrderService.getGroceryItemsToOrder());
+        model.addAttribute("groceryItems", groceryOrderService.getGroceryList());
         model.addAttribute("groceryOrderWrapper", new GroceryOrderWrapper());
         return "new-grocery-order";
     }

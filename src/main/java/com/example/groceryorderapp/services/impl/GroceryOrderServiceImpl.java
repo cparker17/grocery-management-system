@@ -37,38 +37,48 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
     }
 
     @Override
-    public List<ItemToOrder> getGroceryItemsToOrder() throws NoMealPlanException {
+    public List<ItemToOrder> getGroceryList() throws NoMealPlanException {
+        List<ItemToOrder> groceryList = new ArrayList<>();
+        addIngredientsToGroceryList(groceryList);
+        addStockItemsToGroceryList(groceryList);
+        return getDistinctListOf(groceryList);
+    }
+
+    public void addIngredientsToGroceryList(List<ItemToOrder> groceryList) throws NoMealPlanException {
         MealPlan mealPlan = mealPlanRepo.findById(1L)
                 .orElseThrow(() -> new NoMealPlanException("No meal plan created."));
-        List<ItemToOrder> groceryItems = new ArrayList<>();
         for (Meal meal : mealPlan.getMeals()) {
             for (Ingredient ingredient : meal.getIngredients()) {
-                groceryItems.add(new ItemToOrder(ingredient.getLocation(), ingredient.getDescription()));
+                groceryList.add(new ItemToOrder(ingredient.getLocation(), ingredient.getDescription()));
             }
         }
+    }
+
+    public void addStockItemsToGroceryList(List<ItemToOrder> groceryList) {
         for (StockItem stockItem : stockItemRepo.findAll()) {
-            groceryItems.add(new ItemToOrder(stockItem.getLocation(), stockItem.getName()));
+            groceryList.add(new ItemToOrder(stockItem.getLocation(), stockItem.getName()));
         }
-        return groceryItems
-                .stream()
-                .distinct()
-                .collect(Collectors.toList());
     }
 
     @Override
     public GroceryOrder createGroceryOrder(GroceryOrderWrapper groceryOrderWrapper) {
         groceryOrderRepo.deleteAll();
+        return persistGroceryOrder(generateItemsToOrderList(groceryOrderWrapper));
+    }
 
+
+    public List<StoreItem> generateItemsToOrderList(GroceryOrderWrapper groceryOrderWrapper) {
         List<StoreItem> itemsToOrder = new ArrayList<>();
         for (String itemToOrder : groceryOrderWrapper.getItemsToOrder()) {
             itemsToOrder.add(new StoreItem(itemToOrder));
         }
+        return itemsToOrder;
+    }
+
+    public GroceryOrder persistGroceryOrder(List<StoreItem> itemsToOrder) {
         GroceryOrder groceryOrderToPersist = new GroceryOrder();
         groceryOrderToPersist.setId(1L);
-        groceryOrderToPersist.setItemsToOrder(storeItemRepo.saveAll(itemsToOrder
-                .stream()
-                .distinct()
-                .collect(Collectors.toList())));
+        groceryOrderToPersist.setItemsToOrder(storeItemRepo.saveAll(getDistinctListOf(itemsToOrder)));
         return groceryOrderRepo.save(groceryOrderToPersist);
     }
 
@@ -77,5 +87,12 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
         groceryOrderRepo.deleteAll();
         groceryOrder.setId(1L);
         return groceryOrderRepo.save(groceryOrder);
+    }
+
+    public <T> List<T> getDistinctListOf(List<T> list) {
+        return list
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

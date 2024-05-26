@@ -20,7 +20,6 @@ public class StockItemServiceImpl implements StockItemService {
     public StockItem getStockItem(Long id) throws NoSuchStockItemException {
         return stockItemRepo.findById(id)
                 .orElseThrow(() -> new NoSuchStockItemException("A stock item with that id does not exist"));
-
     }
 
     @Override
@@ -70,7 +69,6 @@ public class StockItemServiceImpl implements StockItemService {
             case "Refrigerator" -> stockItem.setLocation(Location.REFRIGERATOR);
             case "Cabinet" -> stockItem.setLocation(Location.CABINET);
         }
-
         stockItemRepo.save(stockItem);
     }
 }

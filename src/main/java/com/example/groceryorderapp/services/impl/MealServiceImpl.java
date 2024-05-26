@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MealServiceImpl implements MealService {
@@ -39,21 +38,15 @@ public class MealServiceImpl implements MealService {
     @Override
     @Transactional
     public Meal saveMeal(Meal meal, RecipeWrapper recipeWrapper) {
-        List<Ingredient> ingredients = new ArrayList<>();
-        for (Ingredient ingredient : meal.getIngredients()) {
-            switch (ingredient.getLocationString()) {
-                case "Freezer" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.FREEZER));
-                case "Refrigerator" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.REFRIGERATOR));
-                case "Cabinet" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.CABINET));
-            }
-        }
-        meal.setIngredients(ingredientRepo.saveAll(ingredients));
-        List<RecipeInstruction> recipe = convertRecipeWrapperToRecipeInstructionList(recipeWrapper);
-
-        meal.setRecipe(recipe);
-        meal.setRecipe(recipeInstructionRepo.saveAll(recipe));
-
+        persistRecipe(meal, recipeWrapper);
+        persistIngredients(meal);
         return mealRepo.save(meal);
+    }
+
+    private void persistRecipe(Meal meal, RecipeWrapper recipeWrapper) {
+        List<RecipeInstruction> recipe = convertRecipeWrapperToRecipeInstructionList(recipeWrapper);
+        meal.setRecipe(recipe);
+        recipeInstructionRepo.saveAll(recipe);
     }
 
     private List<RecipeInstruction> convertRecipeWrapperToRecipeInstructionList(RecipeWrapper recipeWrapper) {
@@ -63,6 +56,19 @@ public class MealServiceImpl implements MealService {
             recipeInstructionList.add(new RecipeInstruction(instruction));
         }
         return recipeInstructionList;
+    }
+
+    private void persistIngredients(Meal meal) {
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (Ingredient ingredient : meal.getIngredients()) {
+            switch (ingredient.getLocationString()) {
+                case "Freezer" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.FREEZER));
+                case "Refrigerator" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.REFRIGERATOR));
+                case "Cabinet" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.CABINET));
+            }
+        }
+        meal.setIngredients(ingredients);
+        ingredientRepo.saveAll(ingredients);
     }
 
     @Override
@@ -95,33 +101,21 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal getTonightsMeal() throws NoMealPlanException {
-        MealPlan mealPlan = mealPlanRepo.findById(1L)
-                .orElseThrow(() -> new NoMealPlanException("No meal plan completed"));
-        List<Meal> mealSchedule = mealPlan.getMeals();
-
+        List<Meal> mealSchedule = getCurrentMealSchedule();
         switch (LocalDate.now().getDayOfWeek()) {
-            case SUNDAY -> {
-                return mealSchedule.get(0);
-            }
-            case MONDAY -> {
-                return mealSchedule.get(1);
-            }
-            case TUESDAY -> {
-                return mealSchedule.get(2);
-            }
-            case WEDNESDAY -> {
-                return mealSchedule.get(3);
-            }
-            case THURSDAY -> {
-                return mealSchedule.get(4);
-            }
-            case FRIDAY -> {
-                return mealSchedule.get(5);
-            }
-            case SATURDAY -> {
-                return mealSchedule.get(6);
-            }
+            case SUNDAY -> {return mealSchedule.get(0);}
+            case MONDAY -> {return mealSchedule.get(1);}
+            case TUESDAY -> {return mealSchedule.get(2);}
+            case WEDNESDAY -> {return mealSchedule.get(3);}
+            case THURSDAY -> {return mealSchedule.get(4);}
+            case FRIDAY -> {return mealSchedule.get(5);}
+            case SATURDAY -> {return mealSchedule.get(6);}
         }
         return null;
+    }
+
+    private List<Meal> getCurrentMealSchedule() throws NoMealPlanException {
+        return mealPlanRepo.findById(1L)
+                .orElseThrow(() -> new NoMealPlanException("No meal plan completed")).getMeals();
     }
 }

@@ -2,8 +2,11 @@ package com.example.groceryorderapp;
 
 import com.example.groceryorderapp.domain.Ingredient;
 import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.domain.RecipeInstruction;
+import com.example.groceryorderapp.model.MealWrapper;
 import com.example.groceryorderapp.repositories.IngredientRepo;
 import com.example.groceryorderapp.repositories.MealRepo;
+import com.example.groceryorderapp.repositories.RecipeInstructionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +32,9 @@ public class GroceryOrderAppApplication {
     @Autowired
     IngredientRepo ingredientRepo;
 
+    @Autowired
+    RecipeInstructionRepo recipeInstructionRepo;
+
     public static void main(String[] args) {
         SpringApplication.run(GroceryOrderAppApplication.class, args);
     }
@@ -38,24 +44,8 @@ public class GroceryOrderAppApplication {
         return (args) -> {
             if (mealRepo.findAll().isEmpty()) {
                 try {
-                    // *** TEST DATA ***
-                    Ingredient ingredient1 = new Ingredient("ingredient #1");
-                    ingredientRepo.save(ingredient1);
-
-                    Ingredient ingredient2 = new Ingredient("ingredient #2");
-                    ingredientRepo.save(ingredient2);
-
-                    Ingredient ingredient3 = new Ingredient("ingredient #3");
-                    ingredientRepo.save(ingredient3);
-
-                    Ingredient ingredient4 = new Ingredient("ingredient #4");
-                    ingredientRepo.save(ingredient4);
-
-                    Ingredient ingredient5 = new Ingredient("ingredient #5");
-                    ingredientRepo.save(ingredient5);
-
-                    FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir") +
-                            "/src/main/resources/static/meal-sample-data-test.xlsx"));
+                   FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir") +
+                            "/src/main/resources/static/meal-data-load.xlsx"));
                     XSSFWorkbook workbook = new XSSFWorkbook(file);
                     XSSFSheet sheet = workbook.getSheetAt(0);
                     List<Meal> mealToPersist = new ArrayList<>();
@@ -65,11 +55,29 @@ public class GroceryOrderAppApplication {
                         for (Cell cell : row) {
                             rowData.add(cell.getStringCellValue());
                         }
-                        Meal meal = Meal.builder()
+                        MealWrapper mealWrapper = MealWrapper.builder()
                                 .name(rowData.get(0))
-                                .ingredients(List.of(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5))
+                                .recipe(rowData.get(1))
+                                .ingredients(rowData.get(2))
                                 .build();
-                        mealToPersist.add(meal);
+                        String[] ingredientStrings = mealWrapper.getIngredients().split(",");
+                        List<Ingredient> ingredients = new ArrayList<>();
+                        for (String ingredient : ingredientStrings) {
+                            ingredients.add(new Ingredient(ingredient));
+                        }
+                        ingredientRepo.saveAll(ingredients);
+                        String[] recipeStrings = mealWrapper.getRecipe().split("\\.");
+                        List<RecipeInstruction> recipeInstructions = new ArrayList<>();
+                        for (String recipeInstruction : recipeStrings) {
+                            recipeInstructions.add(new RecipeInstruction(recipeInstruction));
+                        }
+                        recipeInstructionRepo.saveAll(recipeInstructions);
+
+                        mealToPersist.add(Meal.builder()
+                                .name(mealWrapper.getName())
+                                .recipe(recipeInstructions)
+                                .ingredients(ingredients)
+                                .build());
                     }
                     mealRepo.saveAll(mealToPersist);
                     file.close();

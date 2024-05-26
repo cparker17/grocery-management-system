@@ -4,8 +4,7 @@ import com.example.groceryorderapp.domain.*;
 import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
 import com.example.groceryorderapp.model.GroceryOrderWrapper;
-import com.example.groceryorderapp.model.ItemsToOrder;
-import com.example.groceryorderapp.enums.Location;
+import com.example.groceryorderapp.model.ItemToOrder;
 import com.example.groceryorderapp.repositories.GroceryOrderRepo;
 import com.example.groceryorderapp.repositories.MealPlanRepo;
 import com.example.groceryorderapp.repositories.StockItemRepo;
@@ -13,7 +12,6 @@ import com.example.groceryorderapp.repositories.StoreItemRepo;
 import com.example.groceryorderapp.services.GroceryOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,73 +37,22 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
     }
 
     @Override
-    public ItemsToOrder getCabinetItemsToOrder() throws NoMealPlanException {
-        ItemsToOrder cabinetItemsToOrder = new ItemsToOrder();
+    public List<ItemToOrder> getGroceryItemsToOrder() throws NoMealPlanException {
         MealPlan mealPlan = mealPlanRepo.findById(1L)
                 .orElseThrow(() -> new NoMealPlanException("No meal plan created."));
-
+        List<ItemToOrder> groceryItems = new ArrayList<>();
         for (Meal meal : mealPlan.getMeals()) {
             for (Ingredient ingredient : meal.getIngredients()) {
-                if (ingredient.getLocation() == Location.CABINET) {
-                    cabinetItemsToOrder.getIngredientsToOrder().add(ingredient);
-                }
+                groceryItems.add(new ItemToOrder(ingredient.getLocation(), ingredient.getDescription()));
             }
         }
-
         for (StockItem stockItem : stockItemRepo.findAll()) {
-            if (stockItem.getLocation() == Location.CABINET) {
-                cabinetItemsToOrder.getStockItemsToOrder().add(stockItem);
-            }
+            groceryItems.add(new ItemToOrder(stockItem.getLocation(), stockItem.getName()));
         }
-
-        return cabinetItemsToOrder;
-
-    }
-
-    @Override
-    public ItemsToOrder getRefrigeratorItemsToOrder() throws NoMealPlanException {
-        ItemsToOrder refrigeratorItemsToOrder = new ItemsToOrder();
-        MealPlan mealPlan = mealPlanRepo.findById(1L)
-                .orElseThrow(() -> new NoMealPlanException("No meal plan created."));
-
-        for (Meal meal : mealPlan.getMeals()) {
-            for (Ingredient ingredient : meal.getIngredients()) {
-                if (ingredient.getLocation() == Location.REFRIGERATOR) {
-                    refrigeratorItemsToOrder.getIngredientsToOrder().add(ingredient);
-                }
-            }
-        }
-
-        for (StockItem stockItem : stockItemRepo.findAll()) {
-            if (stockItem.getLocation() == Location.REFRIGERATOR) {
-                refrigeratorItemsToOrder.getStockItemsToOrder().add(stockItem);
-            }
-        }
-
-        return refrigeratorItemsToOrder;
-    }
-
-    @Override
-    public ItemsToOrder getFreezerItemsToOrder() throws NoMealPlanException {
-        ItemsToOrder freezerItemsToOrder = new ItemsToOrder();
-        MealPlan mealPlan = mealPlanRepo.findById(1L)
-                .orElseThrow(() -> new NoMealPlanException("No meal plan created."));
-
-        for (Meal meal : mealPlan.getMeals()) {
-            for (Ingredient ingredient : meal.getIngredients()) {
-                if (ingredient.getLocation() == Location.FREEZER) {
-                    freezerItemsToOrder.getIngredientsToOrder().add(ingredient);
-                }
-            }
-        }
-
-        for (StockItem stockItem : stockItemRepo.findAll()) {
-            if (stockItem.getLocation() == Location.FREEZER) {
-                freezerItemsToOrder.getStockItemsToOrder().add(stockItem);
-            }
-        }
-
-        return freezerItemsToOrder;
+        return groceryItems
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override

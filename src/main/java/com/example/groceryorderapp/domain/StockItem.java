@@ -1,15 +1,13 @@
 package com.example.groceryorderapp.domain;
 
 import com.example.groceryorderapp.enums.Location;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Table;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.NotFound;
 
 @Entity
 @Data
@@ -26,6 +24,10 @@ public class StockItem {
     @NotNull
     private String name;
 
+    @NotFound
     private Location location;
+
+    @Transient
+    private String locationString;
 
 }

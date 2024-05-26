@@ -12,74 +12,93 @@
 <br>
 <h1 class="text-center">New Meal Plan</h1>
 <br>
-<div class="text-center">
-    <a th:href="@{/meal-plan/new}" class=" btn btn-outline-dark bg-light">Create New Meal Plan</a>
-</div>
+<h5 class="text-center">Select a meal for each day of the week</h5>
 <br>
 <div class="container" th:object="${mealPlanWrapper}">
     <form th:action="@{/meal-plan/save}">
         <div class="row justify-content-center">
             <div class="col-4">
-                <h3 class="text-center">Sunday</h3>
-                <div>
-                    <select class="form-select" th:field="*{sundayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Sunday:</span>
+                            <select class="form-select" th:field="*{sundayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h3 class="text-center">Monday</h3>
-                <div>
-                    <select class="form-select" th:field="*{mondayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Monday:</span>
+                            <select class="form-select" th:field="*{mondayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h3 class="text-center">Tuesday</h3>
-                <div>
-                    <select class="form-select" th:field="*{tuesdayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Tuesday:</span>
+                            <select class="form-select" th:field="*{tuesdayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h3 class="text-center">Wednesday</h3>
-                <div>
-                    <select class="form-select" th:field="*{wednesdayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Wednesday:</span>
+                            <select class="form-select" th:field="*{wednesdayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h3 class="text-center">Thursday</h3>
-                <div>
-                    <select class="form-select" th:field="*{thursdayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Thursday:</span>
+                            <select class="form-select" th:field="*{thursdayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h3 class="text-center">Friday</h3>
-                <div>
-                    <select class="form-select" th:field="*{fridayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Friday:</span>
+                            <select class="form-select" th:field="*{fridayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <h3 class="text-center">Saturday</h3>
-                <div>
-                    <select class="form-select" th:field="*{saturdayMeal}">
-                        <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="width: 110px">Saturday:</span>
+                            <select class="form-select" th:field="*{saturdayMeal}">
+                                <option th:each="meal : ${meals}" th:text="${meal.name}" th:value="${meal.name}">meal name
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <br>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-2">
+            <div class="col-2 text-center">
                 <br>
                 <button type="submit" class="btn btn-outline-dark bg-light">Save</button>
             </div>

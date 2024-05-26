@@ -1,6 +1,7 @@
 package com.example.groceryorderapp.services.impl;
 
 import com.example.groceryorderapp.domain.StockItem;
+import com.example.groceryorderapp.enums.Location;
 import com.example.groceryorderapp.exceptions.NoSuchStockItemException;
 import com.example.groceryorderapp.repositories.StockItemRepo;
 import com.example.groceryorderapp.services.StockItemService;
@@ -24,12 +25,31 @@ public class StockItemServiceImpl implements StockItemService {
 
     @Override
     public StockItem addStockItem(StockItem foodItem) {
+        switch (foodItem.getLocationString()) {
+            case "Freezer":
+                foodItem.setLocation(Location.FREEZER);
+                break;
+            case "Refrigerator":
+                foodItem.setLocation(Location.REFRIGERATOR);
+                break;
+            case "Cabinet":
+                foodItem.setLocation(Location.CABINET);
+                break;
+        }
         return stockItemRepo.save(foodItem);
     }
 
     @Override
     public List<StockItem> getAllStockItems() {
-        return stockItemRepo.findAll();
+        List<StockItem> stockItems = stockItemRepo.findAll();
+        for (StockItem stockItem : stockItems) {
+            switch (stockItem.getLocation()) {
+                case FREEZER -> stockItem.setLocationString("Freezer");
+                case REFRIGERATOR -> stockItem.setLocationString("Refrigerator");
+                case CABINET -> stockItem.setLocationString("Cabinet");
+            }
+        }
+        return stockItems;
     }
 
     @Override
@@ -45,10 +65,12 @@ public class StockItemServiceImpl implements StockItemService {
         if (stockItemRepo.findById(stockItem.getId()).isEmpty()) {
             throw new NoSuchStockItemException("A stock item with this id does not exist.");
         }
-        stockItemRepo.save(StockItem.builder()
-                .id(stockItem.getId())
-                .name(stockItem.getName())
-                .location(stockItem.getLocation())
-                .build());
+        switch (stockItem.getLocationString()) {
+            case "Freezer" -> stockItem.setLocation(Location.FREEZER);
+            case "Refrigerator" -> stockItem.setLocation(Location.REFRIGERATOR);
+            case "Cabinet" -> stockItem.setLocation(Location.CABINET);
+        }
+
+        stockItemRepo.save(stockItem);
     }
 }

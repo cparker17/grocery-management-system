@@ -10,11 +10,11 @@
 <body>
 <div th:replace="~{fragments/navbar-fragment.html :: navbar-fragment}"></div>
 <br>
-<h1 class="text-center">Grocery Order Application</h1>
+<h1 class="text-center">Grocery Management System</h1>
 <br>
 <div class="container overflow-hidden">
     <div class="row">
-        <div class="col">
+        <div class="col-4">
             <div class="p-3 border border-dark bg-light text-center" th:object="${meal}">
                 <h2>Tonight's Dinner:</h2>
                 <h3 th:text="*{name}">Meal Name</h3>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-4">
             <div class="p-3 border border-dark bg-light text-center" th:object="${mealPlan}">
                 <h2>This Week's Dinner Schedule</h2>
                 <br>
@@ -73,6 +73,21 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="col-4" th:object="${groceryOrder}">
+            <div class="p-3 border border-dark bg-light text-center">
+                <h2>Last Grocery Order</h2>
+                <br>
+                <div class="row justify-content-center">
+                    <div class="col-4 text-center">
+                        <ul class="list-group" th:each="storeItem : ${groceryOrder.itemsToOrder}">
+                            <li class="list-group-item">
+                                <label th:text="${storeItem.itemToOrder}">Item</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -29,10 +29,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.location.equalsIgnoreCase('Freezer')}">
+                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.locationString.equalsIgnoreCase('Freezer')}">
                     <td th:text="${stockItem.id}">Id</td>
                     <td th:text="${stockItem.name}">Name</td>
-<!--                    <td th:text="${stockItem.location}">Location</td>-->
                     <td>
                         <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
                                 class="btn btn-outline-dark bg-light">Update
@@ -56,7 +55,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.location.equalsIgnoreCase('Refrigerator')}">
+                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.locationString.equalsIgnoreCase('Refrigerator')}">
                     <td th:text="${stockItem.id}">Id</td>
                     <td th:text="${stockItem.name}">Name</td>
 <!--                    <td th:text="${stockItem.location}">Location</td>-->
@@ -83,7 +82,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.location.equalsIgnoreCase('Cabinet')}">
+                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.locationString.equalsIgnoreCase('Cabinet')}">
                     <td th:text="${stockItem.id}">Id</td>
                     <td th:text="${stockItem.name}">Name</td>
 <!--                    <td th:text="${stockItem.location}">Location</td>-->

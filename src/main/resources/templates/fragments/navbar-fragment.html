@@ -11,7 +11,7 @@
         crossorigin="anonymous"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/view/home}">Grocery Order App</a>
+        <a class="navbar-brand" th:href="@{/view/home}"><strong>GMS</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,13 +25,16 @@
                     <a th:href="@{/meals/view-all}" class="nav-link" href="#">Meals</a>
                 </li>
                 <li class="nav-item">
-                    <a th:href="@{/stock-item/view-all}" class="nav-link" href="#">Stock Items</a>
-                </li>
-                <li class="nav-item">
                     <a th:href="@{/meal-plan/view}" class="nav-link" href="#">Meal Plan</a>
                 </li>
                 <li class="nav-item">
+                    <a th:href="@{/stock-item/view-all}" class="nav-link" href="#">Stock Items</a>
+                </li>
+                <li class="nav-item">
                     <a th:href="@{/grocery-order/view}" class="nav-link" href="#">Grocery Order</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{view/help}" class="nav-link">Help</a>
                 </li>
             </ul>
             <form action="https://shop.wegmans.com/search" class="d-flex" role="search">

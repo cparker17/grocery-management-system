@@ -23,6 +23,7 @@ import java.util.List;
 
 @Service
 public class MealServiceImpl implements MealService {
+
     @Autowired
     MealRepo mealRepo;
 

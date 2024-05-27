@@ -9,13 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -113,7 +110,6 @@ public class GroceryOrderAppApplication {
                 groceryOrder.setId(1L);
                 groceryOrderRepo.save(groceryOrder);
             }
-
             if (stockItemRepo.findAll().isEmpty()) {
                 try {
                     FileInputStream file2 = new FileInputStream(new File(System.getProperty("user.dir") +

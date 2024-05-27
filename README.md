@@ -29,6 +29,8 @@ Use Cases:
 6. User can view tonight's meal, ingredients needed, and recipe from their home page.
 
 Set Up:
+   After cloning this repository be sure to update your database settings in the application.properties file.
+This application is currently configured with mySql.
    When the user first boots the application it will load some initial data to include 7 meals and several 
 random stock items. From here user should either navigate to the Meals page to add additional meals or create 
 a Meal Plan. Once a meal plan is created, User can navigate to Stock Items to add/remove their standard weekly 

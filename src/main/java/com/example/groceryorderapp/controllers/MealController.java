@@ -18,39 +18,64 @@ public class MealController {
     MealService mealService;
 
     @RequestMapping("/create")
-    public String createNewMeal(Model model, @ModelAttribute("meal") Meal meal, @ModelAttribute("RecipeWrapper") RecipeWrapper recipeWrapper) throws NoSuchMealException {
+    public String createNewMeal(Model model, @ModelAttribute("meal") Meal meal,
+                                @ModelAttribute("RecipeWrapper") RecipeWrapper recipeWrapper) {
         model.addAttribute("meal", mealService.saveMeal(meal, recipeWrapper));
         return "redirect:/meals/view-all";
     }
 
     @RequestMapping("/edit/{id}")
-    public String editMeal(Model model, @PathVariable(name="id") long id) throws NoSuchMealException {
-        model.addAttribute("meal", mealService.getMeal(id));
-        return "update-meal";
+    public String editMeal(Model model, @PathVariable(name = "id") long id) {
+        try {
+            model.addAttribute("meal", mealService.getMeal(id));
+            return "update-meal";
+        } catch (NoSuchMealException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 
     @RequestMapping("/update")
-    public String updateMeal(@ModelAttribute("meal") Meal meal) throws NoSuchMealException {
+    public String updateMeal(@ModelAttribute("meal") Meal meal) {
         mealService.updateMeal(meal);
         return "redirect:/meals/view-all";
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteMeal(@PathVariable(name="id")Long id) throws NoSuchMealException {
-        mealService.deleteMeal(id);
-        return "redirect:/meals/view-all";
+    public String deleteMeal(Model model, @PathVariable(name = "id") Long id) {
+        try {
+            mealService.deleteMeal(id);
+            return "redirect:/meals/view-all";
+        } catch (NoSuchMealException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 
     @RequestMapping("/view/{id}")
-    public String viewMeal(Model model, @PathVariable(name="id")Long id) throws NoSuchMealException {
-        model.addAttribute("meal", mealService.getMeal(id));
-        return "view-meal";
+    public String viewMeal(Model model, @PathVariable(name = "id") Long id) throws NoSuchMealException {
+        try {
+            model.addAttribute("meal", mealService.getMeal(id));
+            return "view-meal";
+        } catch (NoSuchMealException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 
     @RequestMapping("/view-all")
     public String viewAllMeals(Model model) throws NoSuchMealException {
-        model.addAttribute("meals", mealService.getAllMeals());
-        return "view-all-meals";
+        try {
+            model.addAttribute("meals", mealService.getAllMeals());
+            return "view-all-meals";
+        } catch (NoSuchMealException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 
     @RequestMapping("/add")

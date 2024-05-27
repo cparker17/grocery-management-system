@@ -3,6 +3,7 @@ package com.example.groceryorderapp.controllers;
 import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
 import com.example.groceryorderapp.domain.GroceryOrder;
+import com.example.groceryorderapp.exceptions.NoSuchMealException;
 import com.example.groceryorderapp.model.GroceryOrderWrapper;
 import com.example.groceryorderapp.services.GroceryOrderService;
 import com.example.groceryorderapp.services.MealPlanService;
@@ -27,10 +28,15 @@ public class GroceryOrderController {
     StockItemService stockItemService;
 
     @RequestMapping("/setup")
-    public String setupNewGroceryOrder(Model model) throws NoMealPlanException {
-        model.addAttribute("groceryItems", groceryOrderService.getGroceryList());
-        model.addAttribute("groceryOrderWrapper", new GroceryOrderWrapper());
-        return "new-grocery-order";
+    public String setupNewGroceryOrder(Model model) {
+        try {
+            model.addAttribute("groceryItems", groceryOrderService.getGroceryList());
+            model.addAttribute("groceryOrderWrapper", new GroceryOrderWrapper());
+            return "new-grocery-order";
+        } catch (NoMealPlanException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
     }
 
     @RequestMapping("/create")
@@ -47,8 +53,14 @@ public class GroceryOrderController {
     }
 
     @RequestMapping("/view")
-    public String viewGroceryOrder(Model model) throws NoSuchGroceryOrderException {
-        model.addAttribute(groceryOrderService.getGroceryOrder());
-        return "view-grocery-order";
+    public String viewGroceryOrder(Model model) {
+        try {
+            model.addAttribute(groceryOrderService.getGroceryOrder());
+            return "view-grocery-order";
+        } catch (NoSuchGroceryOrderException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 }

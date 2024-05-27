@@ -25,7 +25,7 @@ public class StockItemController {
     }
 
     @RequestMapping("/new")
-    public String addStockItem(Model model, @ModelAttribute("stockItem") StockItem stockItem){
+    public String addStockItem(Model model, @ModelAttribute("stockItem") StockItem stockItem) {
         stockItemService.addStockItem(stockItem);
         model.addAttribute("stockItems", stockItemService.getAllStockItems());
         return "view-all-stock-items";
@@ -38,20 +38,37 @@ public class StockItemController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteStockItem(@PathVariable(name="id") Long id) throws NoSuchStockItemException {
-        stockItemService.deleteStockItem(id);
-        return "redirect:/stock-item/view-all";
+    public String deleteStockItem(Model model, @PathVariable(name = "id") Long id) {
+        try {
+            stockItemService.deleteStockItem(id);
+            return "redirect:/stock-item/view-all";
+        } catch (NoSuchStockItemException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
     }
 
     @RequestMapping("/edit/{id}")
-    public String editStockItem(Model model, @PathVariable(name = "id") Long id) throws NoSuchStockItemException {
-        model.addAttribute("stockItem", stockItemService.getStockItem(id));
-        return "update-stock-item";
+    public String editStockItem(Model model, @PathVariable(name = "id") Long id) {
+        try {
+            model.addAttribute("stockItem", stockItemService.getStockItem(id));
+            return "update-stock-item";
+        } catch (NoSuchStockItemException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 
     @RequestMapping("/update")
-    public String updateStockItem(@ModelAttribute("stockItem")StockItem stockItem) throws NoSuchStockItemException {
-        stockItemService.updateStockItem(stockItem);
-        return "redirect:/stock-item/view-all";
+    public String updateStockItem(Model model, @ModelAttribute("stockItem") StockItem stockItem) {
+        try {
+            stockItemService.updateStockItem(stockItem);
+            return "redirect:/stock-item/view-all";
+        } catch (NoSuchStockItemException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
+        }
+
     }
 }

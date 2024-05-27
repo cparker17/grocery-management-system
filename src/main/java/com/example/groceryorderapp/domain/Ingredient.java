@@ -29,10 +29,6 @@ public class Ingredient {
     @Transient
     private String locationString;
 
-    public Ingredient (String description) {
-        this.description = description;
-    }
-
     public Ingredient (String description, Location location) {
         this.description = description;
         this.location = location;

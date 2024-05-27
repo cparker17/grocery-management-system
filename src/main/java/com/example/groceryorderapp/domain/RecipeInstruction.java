@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "recipe_instructions")
 public class RecipeInstruction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

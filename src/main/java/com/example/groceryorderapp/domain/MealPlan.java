@@ -13,6 +13,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "meal_plan")
 public class MealPlan {
     @Id
     private Long id;

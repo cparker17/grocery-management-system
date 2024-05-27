@@ -17,18 +17,6 @@ public class IngredientController {
     @Autowired
     IngredientService ingredientService;
 
-    @RequestMapping("/view")
-    public String viewIngredient(Model model, @ModelAttribute("ingredient") Ingredient ingredient) throws NoSuchIngredientException {
-        model.addAttribute("ingredient", ingredientService.getIngredient(ingredient.getId()));
-        return "view-ingredient";
-    }
-
-    @RequestMapping("/edit/{id}")
-    public String editIngredient(Model model, @PathVariable("id") Long id) throws NoSuchIngredientException {
-        model.addAttribute("ingredient", ingredientService.getIngredient(id));
-        return "update-ingredient";
-    }
-
     @RequestMapping("/update")
     public String updateIngredient(@ModelAttribute("ingredient")Ingredient ingredient) {
         ingredientService.updateIngredient(ingredient);
@@ -39,12 +27,6 @@ public class IngredientController {
     public String deleteIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
         ingredientService.deleteIngredient(ingredient);
         return "redirect:/view/home";
-    }
-
-    @RequestMapping("/add")
-    public String addNewIngredient(Model model) {
-        model.addAttribute("ingredient", new Ingredient());
-        return "new-ingredient";
     }
 
     @RequestMapping("/create")

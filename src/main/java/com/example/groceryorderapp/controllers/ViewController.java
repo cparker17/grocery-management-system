@@ -28,15 +28,20 @@ public class ViewController {
     GroceryOrderService groceryOrderService;
 
     @RequestMapping("/home")
-    public String viewHomePage(Model model) throws NoMealPlanException, NoSuchGroceryOrderException {
-        MealPlan mealPlan = mealPlanService.getCurrentMealPlan();
-        if (mealPlan.getMeals().isEmpty()) {
-            return "redirect:/meal-plan/new";
+    public String viewHomePage(Model model) {
+        try {
+            MealPlan mealPlan = mealPlanService.getCurrentMealPlan();
+            if (mealPlan.getMeals().isEmpty()) {
+                return "redirect:/meal-plan/new";
+            }
+            model.addAttribute("mealPlan", mealPlan);
+            model.addAttribute("meal", mealService.getTonightsMeal());
+            model.addAttribute("groceryOrder", groceryOrderService.getGroceryOrder());
+            return "home";
+        } catch (NoMealPlanException | NoSuchGroceryOrderException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error-page";
         }
-        model.addAttribute("mealPlan", mealPlan);
-        model.addAttribute("meal", mealService.getTonightsMeal());
-        model.addAttribute("groceryOrder", groceryOrderService.getGroceryOrder());
-        return "home";
     }
 
     @RequestMapping("help")

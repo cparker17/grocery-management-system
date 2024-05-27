@@ -53,7 +53,7 @@ public class MealServiceImpl implements MealService {
         List<RecipeInstruction> recipeInstructionList = new ArrayList<>();
         String[] recipeInstructions = recipeWrapper.getRecipeInstructions().split("\\.");
         for (String instruction : recipeInstructions) {
-            recipeInstructionList.add(new RecipeInstruction(instruction));
+            recipeInstructionList.add(new RecipeInstruction(instruction.trim()));
         }
         return recipeInstructionList;
     }
@@ -62,9 +62,12 @@ public class MealServiceImpl implements MealService {
         List<Ingredient> ingredients = new ArrayList<>();
         for (Ingredient ingredient : meal.getIngredients()) {
             switch (ingredient.getLocationString()) {
-                case "Freezer" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.FREEZER));
-                case "Refrigerator" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.REFRIGERATOR));
-                case "Cabinet" -> ingredients.add(new Ingredient(ingredient.getDescription(), Location.CABINET));
+                case "Freezer" ->
+                        ingredients.add(new Ingredient(ingredient.getDescription().toLowerCase(), Location.FREEZER));
+                case "Refrigerator" ->
+                        ingredients.add(new Ingredient(ingredient.getDescription().toLowerCase(), Location.REFRIGERATOR));
+                case "Cabinet" ->
+                        ingredients.add(new Ingredient(ingredient.getDescription().toLowerCase(), Location.CABINET));
             }
         }
         meal.setIngredients(ingredients);

@@ -19,6 +19,34 @@
 <div class="container justify-content-center">
     <div class="row">
         <div class="col">
+            <h3 class="text-center">Refrigerator Stock</h3>
+            <table class="table table-striped border border-dark">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stockItem : ${stockItems}"
+                    th:if="${stockItem.locationString.equalsIgnoreCase('Refrigerator')}">
+                    <td th:text="${stockItem.id}">Id</td>
+                    <td th:text="${stockItem.name}">Name</td>
+                    <!--                    <td th:text="${stockItem.location}">Location</td>-->
+                    <td>
+                        <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
+                           class="btn btn-outline-dark bg-light">Update
+                        </a>
+                        <a th:href="@{'/stock-item/delete/' + ${stockItem.id}}"
+                           class="btn btn-outline-dark bg-light">Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
             <h3 class="text-center">Freezer Stock</h3>
             <table class="table table-striped border border-dark">
                 <thead>
@@ -34,33 +62,6 @@
                     <td th:text="${stockItem.name}">Name</td>
                     <td>
                         <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
-                                class="btn btn-outline-dark bg-light">Update
-                        </a>
-                        <a th:href="@{'/stock-item/delete/' + ${stockItem.id}}"
-                                class="btn btn-outline-dark bg-light">Delete
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col">
-            <h3 class="text-center">Refrigerator Stock</h3>
-            <table class="table table-striped border border-dark">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.locationString.equalsIgnoreCase('Refrigerator')}">
-                    <td th:text="${stockItem.id}">Id</td>
-                    <td th:text="${stockItem.name}">Name</td>
-<!--                    <td th:text="${stockItem.location}">Location</td>-->
-                    <td>
-                        <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
                            class="btn btn-outline-dark bg-light">Update
                         </a>
                         <a th:href="@{'/stock-item/delete/' + ${stockItem.id}}"
@@ -70,8 +71,6 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="col">
             <h3 class="text-center">Cabinet Stock</h3>
             <table class="table table-striped border border-dark">
                 <thead>
@@ -85,7 +84,7 @@
                 <tr th:each="stockItem : ${stockItems}" th:if="${stockItem.locationString.equalsIgnoreCase('Cabinet')}">
                     <td th:text="${stockItem.id}">Id</td>
                     <td th:text="${stockItem.name}">Name</td>
-<!--                    <td th:text="${stockItem.location}">Location</td>-->
+                    <!--                    <td th:text="${stockItem.location}">Location</td>-->
                     <td>
                         <a th:href="@{'/stock-item/edit/' + ${stockItem.id}}"
                            class="btn btn-outline-dark bg-light">Update

@@ -39,12 +39,15 @@ public class GroceryOrderAppApplication {
     @Autowired
     GroceryOrderRepo groceryOrderRepo;
 
+    @Autowired
+    StockItemRepo stockItemRepo;
+
     public static void main(String[] args) {
         SpringApplication.run(GroceryOrderAppApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner loadInitialData(MealPlanRepo mealPlanRepo) {
+    public CommandLineRunner loadInitialData(MealPlanRepo mealPlanRepo, StockItemRepo stockItemRepo) {
         return (args) -> {
             if (mealRepo.findAll().isEmpty()) {
                 try {
@@ -109,6 +112,37 @@ public class GroceryOrderAppApplication {
                 GroceryOrder groceryOrder = new GroceryOrder();
                 groceryOrder.setId(1L);
                 groceryOrderRepo.save(groceryOrder);
+            }
+
+            if (stockItemRepo.findAll().isEmpty()) {
+                try {
+                    FileInputStream file2 = new FileInputStream(new File(System.getProperty("user.dir") +
+                            "/src/main/resources/static/stock-item-data-load.xlsx"));
+                    XSSFWorkbook workbook2 = new XSSFWorkbook(file2);
+                    XSSFSheet sheet = workbook2.getSheetAt(0);
+                    List<StockItem> stockItemsToPersist = new ArrayList<>();
+                    ArrayList<String> rowData2;
+                    for (Row row : sheet) {
+                        rowData2 = new ArrayList<>();
+                        for (Cell cell : row) {
+                            rowData2.add(cell.getStringCellValue());
+                        }
+                        StockItem stockItem = StockItem.builder()
+                                .name(rowData2.get(0).toLowerCase())
+                                .locationString(rowData2.get(1))
+                                .build();
+                        switch (stockItem.getLocationString()) {
+                            case "Freezer" -> stockItem.setLocation(Location.FREEZER);
+                            case "Refrigerator" -> stockItem.setLocation(Location.REFRIGERATOR);
+                            case "Cabinet" -> stockItem.setLocation(Location.CABINET);
+                        }
+                        stockItemsToPersist.add(stockItem);
+                    }
+                    stockItemRepo.saveAll(stockItemsToPersist);
+                    file2.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
     }

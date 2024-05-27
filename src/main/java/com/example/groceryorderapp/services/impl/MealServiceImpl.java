@@ -73,6 +73,10 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void updateMeal(Meal meal) {
+        ingredientRepo.deleteAll(meal.getIngredients());
+        ingredientRepo.saveAll(meal.getIngredients());
+        recipeInstructionRepo.deleteAll(meal.getRecipe());
+        recipeInstructionRepo.saveAll(meal.getRecipe());
         mealRepo.save(meal);
     }
 

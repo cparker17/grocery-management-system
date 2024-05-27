@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -69,18 +70,21 @@ public class GroceryOrderAppApplication {
                             String[] ingredientAndLocation = ingredient.split("-");
                             switch (ingredientAndLocation[1]) {
                                 case "Freezer" ->
-                                        ingredients.add(new Ingredient(ingredientAndLocation[0], Location.FREEZER));
+                                        ingredients.add(new Ingredient(ingredientAndLocation[0].toLowerCase().trim(),
+                                                Location.FREEZER));
                                 case "Refrigerator" ->
-                                        ingredients.add(new Ingredient(ingredientAndLocation[0], Location.REFRIGERATOR));
+                                        ingredients.add(new Ingredient(ingredientAndLocation[0].toLowerCase().trim(),
+                                                Location.REFRIGERATOR));
                                 case "Cabinet" ->
-                                        ingredients.add(new Ingredient(ingredientAndLocation[0], Location.CABINET));
+                                        ingredients.add(new Ingredient(ingredientAndLocation[0].toLowerCase().trim(),
+                                                Location.CABINET));
                             }
                         }
                         ingredientRepo.saveAll(ingredients);
                         String[] recipeStrings = mealWrapper.getRecipe().split("\\.");
                         List<RecipeInstruction> recipeInstructions = new ArrayList<>();
                         for (String recipeInstruction : recipeStrings) {
-                            recipeInstructions.add(new RecipeInstruction(recipeInstruction));
+                            recipeInstructions.add(new RecipeInstruction(recipeInstruction.trim()));
                         }
                         recipeInstructionRepo.saveAll(recipeInstructions);
 

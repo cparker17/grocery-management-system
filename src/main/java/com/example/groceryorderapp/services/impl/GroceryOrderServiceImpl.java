@@ -44,7 +44,7 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
         return getDistinctListOf(groceryList);
     }
 
-    public void addIngredientsToGroceryList(List<ItemToOrder> groceryList) throws NoMealPlanException {
+    private void addIngredientsToGroceryList(List<ItemToOrder> groceryList) throws NoMealPlanException {
         MealPlan mealPlan = mealPlanRepo.findById(1L)
                 .orElseThrow(() -> new NoMealPlanException("No meal plan created."));
         for (Meal meal : mealPlan.getMeals()) {
@@ -54,7 +54,7 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
         }
     }
 
-    public void addStockItemsToGroceryList(List<ItemToOrder> groceryList) {
+    private void addStockItemsToGroceryList(List<ItemToOrder> groceryList) {
         for (StockItem stockItem : stockItemRepo.findAll()) {
             groceryList.add(new ItemToOrder(stockItem.getLocation(), stockItem.getName()));
         }
@@ -67,7 +67,7 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
     }
 
 
-    public List<StoreItem> generateItemsToOrderList(GroceryOrderWrapper groceryOrderWrapper) {
+    private List<StoreItem> generateItemsToOrderList(GroceryOrderWrapper groceryOrderWrapper) {
         List<StoreItem> itemsToOrder = new ArrayList<>();
         for (String itemToOrder : groceryOrderWrapper.getItemsToOrder()) {
             itemsToOrder.add(new StoreItem(itemToOrder));
@@ -75,7 +75,7 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
         return itemsToOrder;
     }
 
-    public GroceryOrder persistGroceryOrder(List<StoreItem> itemsToOrder) {
+    private GroceryOrder persistGroceryOrder(List<StoreItem> itemsToOrder) {
         GroceryOrder groceryOrderToPersist = new GroceryOrder();
         groceryOrderToPersist.setId(1L);
         groceryOrderToPersist.setItemsToOrder(storeItemRepo.saveAll(getDistinctListOf(itemsToOrder)));
@@ -89,7 +89,7 @@ public class GroceryOrderServiceImpl implements GroceryOrderService {
         return groceryOrderRepo.save(groceryOrder);
     }
 
-    public <T> List<T> getDistinctListOf(List<T> list) {
+    private <T> List<T> getDistinctListOf(List<T> list) {
         return list
                 .stream()
                 .distinct()

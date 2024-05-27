@@ -36,15 +36,15 @@ public class MealPlanServiceImpl implements MealPlanService {
         mealPlanRepo.save(mealPlan);
     }
 
-    public List<Meal> setMealsFromMealPlanWrapper(MealPlan mealPlan, MealPlanWrapper mealPlanWrapper) {
+    private void setMealsFromMealPlanWrapper(MealPlan mealPlan, MealPlanWrapper mealPlanWrapper) {
         List<Meal> mealsList = new ArrayList<>();
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getSundayMeal()));
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getMondayMeal()));
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getTuesdayMeal()));
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getWednesdayMeal()));
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getThursdayMeal()));
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getFridayMeal()));
-        mealPlan.getMeals().add(mealRepo.findMealByName(mealPlanWrapper.getSaturdayMeal()));
-        return mealsList;
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getSundayMeal()));
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getMondayMeal()));
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getTuesdayMeal()));
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getWednesdayMeal()));
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getThursdayMeal()));
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getFridayMeal()));
+        mealsList.add(mealRepo.findMealByName(mealPlanWrapper.getSaturdayMeal()));
+        mealPlan.setMeals(mealsList);
     }
 }

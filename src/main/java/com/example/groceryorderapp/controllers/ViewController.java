@@ -1,6 +1,7 @@
 package com.example.groceryorderapp.controllers;
 
 import com.example.groceryorderapp.domain.Meal;
+import com.example.groceryorderapp.domain.MealPlan;
 import com.example.groceryorderapp.domain.StockItem;
 import com.example.groceryorderapp.exceptions.NoMealPlanException;
 import com.example.groceryorderapp.exceptions.NoSuchGroceryOrderException;
@@ -28,8 +29,12 @@ public class ViewController {
 
     @RequestMapping("/home")
     public String viewHomePage(Model model) throws NoMealPlanException, NoSuchGroceryOrderException {
+        MealPlan mealPlan = mealPlanService.getCurrentMealPlan();
+        if (mealPlan.getMeals().isEmpty()) {
+            return "redirect:/meal-plan/new";
+        }
+        model.addAttribute("mealPlan", mealPlan);
         model.addAttribute("meal", mealService.getTonightsMeal());
-        model.addAttribute("mealPlan", mealPlanService.getCurrentMealPlan());
         model.addAttribute("groceryOrder", groceryOrderService.getGroceryOrder());
         return "home";
     }

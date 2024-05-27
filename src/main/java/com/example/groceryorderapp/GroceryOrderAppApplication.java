@@ -1,12 +1,9 @@
 package com.example.groceryorderapp;
 
-import com.example.groceryorderapp.domain.Ingredient;
-import com.example.groceryorderapp.domain.Meal;
-import com.example.groceryorderapp.domain.RecipeInstruction;
+import com.example.groceryorderapp.domain.*;
+import com.example.groceryorderapp.enums.Location;
 import com.example.groceryorderapp.model.MealWrapper;
-import com.example.groceryorderapp.repositories.IngredientRepo;
-import com.example.groceryorderapp.repositories.MealRepo;
-import com.example.groceryorderapp.repositories.RecipeInstructionRepo;
+import com.example.groceryorderapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,12 +32,18 @@ public class GroceryOrderAppApplication {
     @Autowired
     RecipeInstructionRepo recipeInstructionRepo;
 
+    @Autowired
+    MealPlanRepo mealPlanRepo;
+
+    @Autowired
+    GroceryOrderRepo groceryOrderRepo;
+
     public static void main(String[] args) {
         SpringApplication.run(GroceryOrderAppApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner loadInitialData() {
+    public CommandLineRunner loadInitialData(MealPlanRepo mealPlanRepo) {
         return (args) -> {
             if (mealRepo.findAll().isEmpty()) {
                 try {
@@ -63,7 +66,15 @@ public class GroceryOrderAppApplication {
                         String[] ingredientStrings = mealWrapper.getIngredients().split(",");
                         List<Ingredient> ingredients = new ArrayList<>();
                         for (String ingredient : ingredientStrings) {
-                            ingredients.add(new Ingredient(ingredient));
+                            String[] ingredientAndLocation = ingredient.split("-");
+                            switch (ingredientAndLocation[1]) {
+                                case "Freezer" ->
+                                        ingredients.add(new Ingredient(ingredientAndLocation[0], Location.FREEZER));
+                                case "Refrigerator" ->
+                                        ingredients.add(new Ingredient(ingredientAndLocation[0], Location.REFRIGERATOR));
+                                case "Cabinet" ->
+                                        ingredients.add(new Ingredient(ingredientAndLocation[0], Location.CABINET));
+                            }
                         }
                         ingredientRepo.saveAll(ingredients);
                         String[] recipeStrings = mealWrapper.getRecipe().split("\\.");
@@ -84,6 +95,16 @@ public class GroceryOrderAppApplication {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+            if (mealPlanRepo.findById(1L).isEmpty()) {
+                MealPlan mealPlan = new MealPlan();
+                mealPlan.setId(1L);
+                mealPlanRepo.save(mealPlan);
+            }
+            if (groceryOrderRepo.findById(1L).isEmpty()) {
+                GroceryOrder groceryOrder = new GroceryOrder();
+                groceryOrder.setId(1L);
+                groceryOrderRepo.save(groceryOrder);
             }
         };
     }

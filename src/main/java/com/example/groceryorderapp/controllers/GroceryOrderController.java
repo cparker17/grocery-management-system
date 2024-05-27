@@ -46,11 +46,6 @@ public class GroceryOrderController {
         return "view-grocery-order";
     }
 
-    @RequestMapping("/delete")
-    public String deleteGroceryOrder(Model model, @ModelAttribute("groceryOrder") GroceryOrder groceryOrder) {
-        return "home";
-    }
-
     @RequestMapping("/view")
     public String viewGroceryOrder(Model model) throws NoSuchGroceryOrderException {
         model.addAttribute(groceryOrderService.getGroceryOrder());
